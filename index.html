@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pottery Wheel – Handmade Traditional Clay Pots</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --clay: #a0522d;
+      --terracotta: #d2691e;
+      --beige: #f5f5dc;
+      --cream: #fdf6e3;
+      --shadow: rgba(120,60,30,0.09);
+      --accent: #c68642;
+      --radius: 15px;
+      --transition: 0.32s cubic-bezier(.47,1.64,.41,.8);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0;}
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--cream);
+      color: var(--clay);
+      min-height: 100vh;
+    }
+
+    /* Top header styled similar to reference banner */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(to bottom, #f9efe1 0%, #f3dfc5 55%, #e6c9a3 100%);
+      color: #5a341c;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    }
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .brand-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .brand-text-main {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .brand-text-sub {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .header-contact {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .header-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+    .header-contact-item i {
+      font-size: 1.1rem;
+      color: #8b4a24;
+    }
+
+    @keyframes wheel-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--beige);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-bg .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform-origin: 50% 80%;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(25,12,6,0.86) 0%, rgba(25,12,6,0.86) 40%, rgba(25,12,6,0.55) 65%, rgba(0,0,0,0.65) 100%);
+      z-index: 1;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1120px;
+      width: 100%;
+      padding: 3.2rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+    }
+    .hero-content {
+      flex: 1.1;
+      color: #f9edd9;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: heroFadeUp 0.9s ease-out 0.15s forwards;
+    }
+    .hero-kicker {
+      font-size: 0.98rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #f7c48a;
+      margin-bottom: 0.65rem;
+    }
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.65);
+      letter-spacing: 1px;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      margin-bottom: 1.7rem;
+      letter-spacing: .4px;
+      color: #ffe3b4;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.85);
+      max-width: 480px;
+    }
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem 1.6rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: heroFadeUp 0.9s ease-out 0.35s forwards;
+    }
+    .contact-note {
+      font-size: 0.96rem;
+      color: #f7d9aa;
+    }
+
+    /* Right-side hero image slot */
+    .hero-visual {
+      flex: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual-inner {
+      max-width: 420px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.55);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: heroFadeUp 0.95s ease-out 0.35s forwards;
+    }
+    .hero-visual-inner img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .btn {
+      padding: 0.9em 2.1em;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(90deg, var(--terracotta), var(--accent));
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow var(--transition);
+      box-shadow: 0 6px 24px -8px var(--shadow);
+    }
+    .btn:hover, .btn:focus {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 12px 34px -8px var(--shadow);
+      background: linear-gradient(80deg, var(--accent), var(--terracotta));
+    }
+
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* (hero background video plays without extra rotation animation) */
+    .catalogue-section {
+      background: var(--beige);
+      padding: 4rem 1rem 3rem 1rem;
+    }
+    .catalogue-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--clay);
+      margin-bottom: 1.5rem;
+    }
+    .catalogue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 1130px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      text-align: left;
+      transition: box-shadow 0.25s, transform var(--transition);
+      position: relative;
+      overflow: hidden;
+      opacity: 1;
+    }
+    .product-card:hover, .product-card:focus-within {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+    }
+    .product-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      padding: 1.5rem 1.5rem 1.2rem;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .product-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.5);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .product-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      z-index: 2;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 1rem 1rem 1.1rem;
+      border-top: 1px solid #f0ebe3;
+    }
+    .product-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .product-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2c1810;
+      letter-spacing: .5px;
+      margin-bottom: 0.2rem;
+    }
+    .product-price {
+      font-size: 1rem;
+      color: var(--terracotta);
+      font-weight: 700;
+      letter-spacing: .2px;
+      margin-bottom: 0.1rem;
+    }
+    .product-stock {
+      font-size: 0.85rem;
+      color: #7a4b28;
+      margin-bottom: 0.25rem;
+      opacity: 0.9;
+    }
+    .product-card-cta {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #c44a2a;
+      background: transparent;
+      color: #c44a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.25rem;
+    }
+    .product-card-cta:hover {
+      background: #c44a2a;
+      color: #fff;
+    }
+    .load-more-container {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .upload-section {
+      background: var(--cream);
+      border-radius: var(--radius);
+      max-width: 440px;
+      margin: 2.2rem auto 1.3rem auto;
+      padding: 2rem 1.4rem;
+      box-shadow: 0 4px 16px -8px var(--shadow);
+      text-align: left;
+      position: relative;
+      z-index: 3;
+    }
+    .upload-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--clay);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65em;
+    }
+    .admin-form label {
+      display: block;
+      margin-bottom: 0.45rem;
+      margin-top: 1rem;
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+    .admin-form input[type="text"],
+    .admin-form input[type="number"] {
+      width: 100%;
+      padding: 0.74rem 1rem;
+      margin-top: 0.1rem;
+      border-radius: 8px;
+      border: 1px solid #e2ceb9;
+      background: #f9f9f7;
+      font-size: 1rem;
+      color: var(--clay);
+      outline: none;
+      transition: border 0.15s;
+    }
+    .admin-form input:focus {
+      border-color: var(--accent);
+    }
+    .admin-form input[type="file"] {
+      margin-top: 0.5rem;
+      margin-bottom: 0.6rem;
+      border-radius: 7px;
+      background: var(--beige);
+      font-size: 1rem;
+    }
+    .admin-form .btn {
+      margin-top: 1.2rem;
+      width: 100%;
+    }
+    .footer {
+      background: var(--terracotta);
+      color: var(--cream);
+      padding: 2em 1em 1em 1em;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin-top: 3em;
+      font-size: 1.07em;
+      box-shadow: 0 -2px 18px -6px var(--shadow);
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .footer-logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.35em;
+      margin-bottom: 0.1em;
+    }
+    .footer-social {
+      margin-top: 0.5em;
+      display: flex;
+      gap: 1.2em;
+    }
+    .footer-social a {
+      color: var(--cream);
+      font-size: 1.45em;
+      transition: color 0.18s;
+      text-decoration: none;
+    }
+    .footer-social a:hover {
+      color: #b15d22;
+    }
+    .footer-contact {
+      margin-top: 0.2em;
+      text-align: center;
+      font-size: 0.97em;
+      opacity: 0.93;
+    }
+
+    /* (hero-media wheel removed; hero background itself now animates) */
+
+    /* Fullscreen image viewer */
+    .image-lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+    .image-lightbox-overlay img {
+      max-width: 96vw;
+      max-height: 96vh;
+      object-fit: contain;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      border-radius: 10px;
+    }
+    .image-lightbox-close {
+      position: fixed;
+      top: 0.6rem;
+      right: 0.9rem;
+      font-size: 2rem;
+      color: #ffffff;
+      cursor: pointer;
+      z-index: 41;
+      border: none;
+      background: transparent;
+    }
+
+    /* Order modal */
+    .order-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    .order-modal {
+      background: #fffaf1;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+      max-width: 540px;
+      width: 90%;
+      padding: 1.4rem 1.2rem 1.6rem 1.2rem;
+      position: relative;
+      color: #5a341c;
+    }
+    .order-modal-logo {
+      position: absolute;
+      top: 0.9rem;
+      left: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #8b4a24;
+    }
+    .order-modal-logo i {
+      font-size: 1.4rem;
+      color: #a0522d;
+    }
+    .order-modal-close {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.6rem;
+      border: none;
+      background: transparent;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #a0522d;
+    }
+    .order-modal-body {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .order-modal-image-wrap {
+      flex: 0 0 180px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f3e3c9;
+    }
+    .order-modal-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .order-modal-info {
+      flex: 1;
+    }
+    .order-modal-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .order-modal-price {
+      font-weight: 700;
+      color: #d2691e;
+      margin-bottom: 0.25rem;
+    }
+    .order-modal-stock {
+      font-size: 0.9rem;
+      color: #7a4b28;
+      margin-bottom: 0.6rem;
+    }
+    .order-modal-contact {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-content {
+        text-align: center;
+        align-items: center;
+      }
+      .hero-visual {
+        order: -1;
+      }
+      .hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .catalogue-section {
+        padding: 2.5rem 0.3rem 2rem 0.3rem;
+      }
+      .catalogue-grid {
+        gap: 1.25rem;
+      }
+      .upload-section {
+        padding: 1.25rem 0.55rem;
+      }
+    }
+    @media (max-width: 650px) {
+      .hero-inner {
+        padding: 2.4rem 0.9rem 2.6rem 0.9rem;
+      }
+      .hero-title {
+        font-size: 2.1rem;
+      }
+      .hero-sub {
+        font-size: 1.02rem;
+      }
+      .catalogue-title {
+        font-size: 1.3rem;
+      }
+      .footer-content {
+        font-size: 0.9em;
+      }
+      .footer {
+        padding: 1.1rem 0.1rem 1rem 0.1rem;
+      }
+    }
+    /* Hide scrollbars in webkit browsers for smooth UI */
+    ::-webkit-scrollbar { width: 0; background: transparent; }
+  </style>
+</head>
+<body>
+  <!-- TOP HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img
+          class="brand-logo"
+          src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=160&q=80"
+          alt="Pottery Wheel logo">
+        <div>
+          <div class="brand-text-main">Pottery Wheel</div>
+          <div class="brand-text-sub">Handmade Traditional Clay Pots</div>
+        </div>
+      </div>
+      <div class="header-contact">
+        <div class="header-contact-item">
+          <i class='bx bx-phone'></i>
+          <span>Balaji: 9966134995</span>
+        </div>
+        <div class="header-contact-item">
+          <i class='bx bx-phone'></i>
+          <span>Yash: 9182140260</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg">
+      <video
+        class="hero-video"
+        src="file:///C:/Users/share/Videos/Captures/vedio/4754253_Artists_Workshop_1920x1080%20(1).mp4"
+        autoplay
+        muted
+        loop
+        playsinline>
+      </video>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-content" style="max-width: 520px;">
+        <div class="hero-kicker">pottery wheel Works</div>
+        <div class="hero-title">Handmade Traditional Clay Pots</div>
+        <div class="hero-sub">
+          Authentic handcrafted pottery made with tradition and passion.
+        </div>
+        <div class="hero-cta-group">
+          <button class="btn" onclick="scrollToCatalogue()">Contact Us</button>
+          <div class="contact-note">
+            Balaji: 9966134995 &nbsp;|&nbsp; Yash: 9182140260
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual-inner">
+          <img src="../.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-d1574736-c98b-442b-a06a-25b361fcb1bb.png"
+               alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN UPLOAD -->
+  <section class="upload-section">
+    <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
+    <form id="adminForm" class="admin-form">
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
+      <label for="productPrice">Product Price (₹)</label>
+      <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
+      <label for="productImage">Product Image</label>
+      <input type="file" id="productImage" accept="image/*" required>
+      <button type="submit" class="btn">Upload Item</button>
+    </form>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section class="catalogue-section" id="catalogueSection">
+    <h2 class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Pottery Collection</h2>
+    <div class="catalogue-grid" id="catalogueGrid"></div>
+    <div class="load-more-container">
+      <button id="loadMoreBtn" class="btn" style="margin-top:1em;">Load More</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <i class='bx bx-bowl-hot'></i> Pottery Wheel
+      </div>
+      <div class="footer-contact">
+        <div>
+          <i class='bx bx-phone'></i> Balaji: 9966134995 |
+          <i class='bx bx-phone'></i> Yash: 9182140260
+        </div>
+        <div style="margin-top:0.2em;">
+          <i class='bx bx-envelope'></i> balajibima9966@gmail.com
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+        <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
+        <a href="#" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+      <div style="margin-top:0.5em;opacity:0.93;">© 2024 MittiKala – All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ORDER MODAL -->
+  <div class="order-modal-overlay" id="orderModalOverlay" aria-hidden="true">
+    <div class="order-modal" role="dialog" aria-modal="true" aria-labelledby="orderModalName">
+      <div class="order-modal-logo" aria-hidden="true">
+        <i class='bx bx-bowl-hot'></i>
+        <span>Pottery Wheel</span>
+      </div>
+      <button class="order-modal-close" id="orderModalClose" aria-label="Close order details">&times;</button>
+      <div class="order-modal-body">
+        <div class="order-modal-image-wrap">
+          <img id="orderModalImage" src="" alt="Selected pottery item">
+        </div>
+        <div class="order-modal-info">
+          <div class="order-modal-name" id="orderModalName"></div>
+          <div class="order-modal-price" id="orderModalPrice"></div>
+          <div class="order-modal-stock" id="orderModalStock"></div>
+          <p class="order-modal-contact">
+            For order details, please contact our team:<br>
+            Balaji: 9966134995<br>
+            Yash: 9182140260<br>
+            Email: balajibima9966@gmail.com
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE LIGHTBOX -->
+  <div class="image-lightbox-overlay" id="imageLightboxOverlay" aria-hidden="true">
+    <button class="image-lightbox-close" id="imageLightboxClose" aria-label="Close image viewer">&times;</button>
+    <img id="imageLightboxImg" src="" alt="Pottery image in detail">
+  </div>
+
+  <!-- JS: Site logic and interactivity -->
+  <script>
+    // Demo product data (simulate database)
+    let products = [
+      {
+        name: 'Decorative Stacked Matka Set',
+        price: 299,
+        stock: 100,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-0efa0a0b-60c8-447c-a439-55448fec98b0.png'
+      },
+      {
+        name: 'Traditional Clay Pottery Set (12 pcs)',
+        price: 300,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-85027b8e-f2d3-48c8-a747-ec981e32303c.png'
+      },
+      {
+        name: 'Single Traditional Clay Pot',
+        price: 25,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-85027b8e-f2d3-48c8-a747-ec981e32303c.png'
+      },
+      {
+        name: 'Handmade Terracotta Vase',
+        price: 699,
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Classic Clay Tea Set',
+        price: 1199,
+        image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Rustic Pottery Mug',
+        price: 349,
+        image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Decorative Earthen Bowl',
+        price: 429,
+        image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Artisan Clay Planter',
+        price: 520,
+        image: 'https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Miniature Diya Set',
+        price: 259,
+        image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Traditional Clay Matka',
+        price: 649,
+        image: 'https://images.unsplash.com/photo-1468578500627-4d7e1c7dcad5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Painted Clay Plate',
+        price: 380,
+        image: 'https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      }
+    ];
+
+    // ORDER MODAL HELPERS
+    const orderModalOverlay = document.getElementById('orderModalOverlay');
+    const orderModalImage = document.getElementById('orderModalImage');
+    const orderModalName = document.getElementById('orderModalName');
+    const orderModalPrice = document.getElementById('orderModalPrice');
+    const orderModalStock = document.getElementById('orderModalStock');
+    const orderModalClose = document.getElementById('orderModalClose');
+
+    function openOrderModal(product) {
+      if (!orderModalOverlay) return;
+      orderModalImage.src = product.image;
+      orderModalName.textContent = product.name;
+      orderModalPrice.textContent = `₹${product.price}`;
+      if (typeof product.stock === 'number') {
+        orderModalStock.textContent = `Available: ${product.stock}`;
+        orderModalStock.style.display = 'block';
+      } else {
+        orderModalStock.style.display = 'none';
+      }
+      orderModalOverlay.style.display = 'flex';
+      orderModalOverlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeOrderModal() {
+      if (!orderModalOverlay) return;
+      orderModalOverlay.style.display = 'none';
+      orderModalOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    if (orderModalClose && orderModalOverlay) {
+      orderModalClose.addEventListener('click', closeOrderModal);
+      orderModalOverlay.addEventListener('click', (e) => {
+        if (e.target === orderModalOverlay) {
+          closeOrderModal();
+        }
+      });
+    }
+
+    // IMAGE LIGHTBOX HELPERS
+    const imageLightboxOverlay = document.getElementById('imageLightboxOverlay');
+    const imageLightboxImg = document.getElementById('imageLightboxImg');
+    const imageLightboxClose = document.getElementById('imageLightboxClose');
+
+    function openImageLightbox(src, altText) {
+      if (!imageLightboxOverlay || !imageLightboxImg) return;
+      imageLightboxImg.src = src;
+      imageLightboxImg.alt = altText || 'Pottery image in detail';
+      imageLightboxOverlay.style.display = 'flex';
+      imageLightboxOverlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeImageLightbox() {
+      if (!imageLightboxOverlay) return;
+      imageLightboxOverlay.style.display = 'none';
+      imageLightboxOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    if (imageLightboxClose && imageLightboxOverlay) {
+      imageLightboxClose.addEventListener('click', closeImageLightbox);
+      imageLightboxOverlay.addEventListener('click', (e) => {
+        if (e.target === imageLightboxOverlay) {
+          closeImageLightbox();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeImageLightbox();
+          closeOrderModal();
+        }
+      });
+    }
+
+    // Save to localStorage for demo
+    function getStoredProducts() {
+      const saved = localStorage.getItem('mittikala_products');
+      return saved ? JSON.parse(saved) : null;
+    }
+
+    function saveProducts() {
+      localStorage.setItem('mittikala_products', JSON.stringify(products));
+    }
+
+    // Product card rendering logic
+    const cardsPerPage = 4;
+    let displayedCount = 0;
+    const catalogueGrid = document.getElementById('catalogueGrid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    function renderProducts(reset = false) {
+      if (reset) {
+        catalogueGrid.innerHTML = '';
+        displayedCount = 0;
+      }
+      const start = displayedCount;
+      const end = Math.min(products.length, displayedCount + cardsPerPage);
+
+      for (let i = start; i < end; ++i) {
+        const p = products[i];
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.tabIndex = 0;
+        card.style.opacity = 0;
+
+        const stockHtml = typeof p.stock === 'number'
+          ? `<div class="product-stock">Available: ${p.stock}</div>`
+          : '';
+
+        card.innerHTML = `
+          <div class="product-img-wrap">
+            <img class="product-img" src="${p.image}" alt="${p.name}">
+          </div>
+          <div class="product-card-footer">
+            <div class="product-card-info">
+              <div class="product-name">${p.name}</div>
+              <div class="product-price">₹${p.price}</div>
+              ${stockHtml}
+            </div>
+            <button type="button" class="product-card-cta" aria-label="Buy or view order details"><i class='bx bx-right-arrow-alt'></i></button>
+          </div>
+        `;
+
+        const imgWrap = card.querySelector('.product-img-wrap');
+        if (imgWrap) {
+          imgWrap.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            openImageLightbox(p.image, p.name);
+          });
+        }
+
+        const ctaBtn = card.querySelector('.product-card-cta');
+        if (ctaBtn) {
+          ctaBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            openOrderModal(p);
+          });
+        }
+
+        catalogueGrid.appendChild(card);
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.36s var(--transition), transform 0.47s var(--transition)';
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0) scale(1)';
+        }, 40 * (i - start));
+      }
+
+      displayedCount = end;
+      loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
+    }
+    function loadMoreProducts() {
+      renderProducts(false);
+    }
+    loadMoreBtn.addEventListener('click', loadMoreProducts);
+
+    // Infinite scroll for mobile
+    window.addEventListener('scroll', () => {
+      // Infinite scroll for catalogue
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 160) {
+        if (displayedCount < products.length) {
+          renderProducts(false);
+        }
+      }
+
+      // Hero parallax: move background position slightly while keeping rotation animation
+      const heroBg = document.querySelector('.hero-bg');
+      if (heroBg) {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const offset = Math.min(scrollY * 0.15, 40);
+        heroBg.style.backgroundPositionY = `${50 - offset * 0.4}%`;
+      }
+    });
+
+    // ADMIN FORM LOGIC
+    document.getElementById("adminForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("productName").value.trim();
+      const price = document.getElementById("productPrice").value;
+      const fileInput = document.getElementById("productImage");
+      if (!fileInput.files.length) return;
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const imageURL = ev.target.result;
+        products.unshift({
+          name,
+          price: parseFloat(price),
+          image: imageURL
+        });
+        saveProducts();
+        renderProducts(true);
+      };
+      reader.readAsDataURL(file);
+
+      // Reset form
+      this.reset();
+      this.elements[0].focus();
+    });
+
+    function scrollToCatalogue() {
+      document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = getStoredProducts();
+      if (stored) {
+        products = stored;
+      }
+      renderProducts(true);
+    });
+  </script>
+</body>
+</html>

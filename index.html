@@ -685,6 +685,13 @@
       }
     }
 
+    /* On smaller screens, keep hero as clean static image (no video) to avoid glitches */
+    @media (max-width: 768px) {
+      .hero-bg .hero-video {
+        display: none;
+      }
+    }
+
     @media (max-width: 800px) {
       .catalogue-section {
         padding: 2.5rem 0.3rem 2rem 0.3rem;
@@ -813,7 +820,7 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-banner" aria-hidden="true">
-        <img src="./assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_59afbf215f8ddcf2af62bc5ca8d39f9b_images_image-f0295764-aff6-4ca0-8203-16081bc38280.png" alt="Decorative pottery contact banner">
+        <img src="./assets/fotter_image-4a0b486b-28ad-4373-b572-8c99cb902d32.png" alt="Decorative pottery contact banner">
       </div>
       <div class="footer-logo">
         <i class='bx bx-bowl-hot'></i> Pottery Wheel

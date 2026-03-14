@@ -50,34 +50,21 @@
       gap: 0.9rem;
     }
     .brand-logo {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      object-position: center;
       box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-      flex-shrink: 0;
-      display: block;
-    }
-    .brand-text-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 0.2rem;
     }
     .brand-text-main {
       font-family: 'Cinzel', 'Times New Roman', serif;
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
-      line-height: 1.2;
+      letter-spacing: 2px;
     }
     .brand-text-sub {
-      font-family: 'Cinzel', 'Times New Roman', serif;
       font-size: 0.85rem;
       opacity: 0.9;
-      letter-spacing: 0.5px;
     }
     .header-contact {
       display: flex;
@@ -116,14 +103,14 @@
       inset: 0;
       z-index: 0;
       overflow: hidden;
-      background: #1a0f0a;
+      background: #000 url("https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=1200&q=80") center center / cover no-repeat;
     }
     .hero-bg .hero-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transform-origin: 50% 80%;
-      opacity: 1;
+      opacity: 0;
       transition: opacity 0.6s ease-out;
     }
     .hero::before {
@@ -243,44 +230,20 @@
     .catalogue-section {
       background: var(--beige);
       padding: 4rem 1rem 3rem 1rem;
-      overflow: visible;
-      display: block !important;
-    }
-    .catalogue-heading-wrap {
-      margin-top: 1.75rem;
-      margin-bottom: 1.5rem;
     }
     .catalogue-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4em;
       text-align: center;
       font-size: 2rem;
       font-weight: 700;
       color: var(--clay);
-      margin: 0;
-    }
-    .catalogue-title-icon {
-      display: inline-flex;
-      align-items: center;
-      color: var(--clay);
-    }
-    .catalogue-title-icon svg {
-      width: 1.2em;
-      height: 1.2em;
-      flex-shrink: 0;
-      fill: var(--clay);
+      margin-bottom: 1.5rem;
     }
     .catalogue-grid {
-      display: grid !important;
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
       max-width: 1130px;
       margin: 0 auto;
-      min-height: 60px;
-      visibility: visible !important;
-      opacity: 1 !important;
     }
     .product-card {
       background: #ffffff;
@@ -381,45 +344,6 @@
       background: #c44a2a;
       color: #fff;
     }
-    .product-card-actions {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-    .product-card-actions .btn-edit,
-    .product-card-actions .btn-delete {
-      padding: 0.3rem 0.55rem;
-      font-size: 0.78rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.2rem;
-      transition: background 0.2s, color 0.2s;
-    }
-    .product-card-actions .btn-edit {
-      background: #e8d5c4;
-      color: #5a341c;
-    }
-    .product-card-actions .btn-edit:hover {
-      background: #d4b896;
-    }
-    .product-card-actions .btn-delete {
-      background: #e8c4c4;
-      color: #8b3a3a;
-    }
-    .product-card-actions .btn-delete:hover {
-      background: #d4a0a0;
-    }
-    .catalogue-empty {
-      text-align: center;
-      color: var(--clay);
-      padding: 2rem 1rem;
-      opacity: 0.9;
-    }
     .load-more-container {
       text-align: center;
       margin-top: 2.5rem;
@@ -428,7 +352,7 @@
       background: var(--cream);
       border-radius: var(--radius);
       max-width: 440px;
-      margin: 1.5rem auto 1.5rem auto;
+      margin: 2.2rem auto 1.3rem auto;
       padding: 2rem 1.4rem;
       box-shadow: 0 4px 16px -8px var(--shadow);
       text-align: left;
@@ -474,14 +398,8 @@
       background: var(--beige);
       font-size: 1rem;
     }
-    .admin-form-hint {
-      font-size: 0.85rem;
-      color: var(--clay);
-      opacity: 0.9;
-      margin: 0.4rem 0 0 0;
-    }
     .admin-form .btn {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       width: 100%;
     }
     .footer {
@@ -494,37 +412,13 @@
       font-size: 1.07em;
       box-shadow: 0 -2px 18px -6px var(--shadow);
     }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
     .footer-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1em;
       max-width: 900px;
-      flex: 1 1 320px;
-    }
-    .footer-image-wrap {
-      flex: 0 0 auto;
-      max-width: 380px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-    .footer-image-wrap img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 220px;
-      object-fit: cover;
-      object-position: center;
+      margin: 0 auto;
     }
     .footer-logo {
       font-size: 1.5em;
@@ -534,16 +428,6 @@
       align-items: center;
       gap: 0.35em;
       margin-bottom: 0.1em;
-    }
-    .footer-pot-icon {
-      display: inline-flex;
-      align-items: center;
-      color: inherit;
-    }
-    .footer-pot-icon svg {
-      width: 1.2em;
-      height: 1.2em;
-      flex-shrink: 0;
     }
     .footer-social {
       margin-top: 0.5em;
@@ -598,16 +482,6 @@
       transform: translateY(-1px);
       box-shadow: 0 10px 24px rgba(0,0,0,0.3);
       outline: none;
-    }
-    .footer-action-btn,
-    a.footer-action-btn {
-      text-decoration: none;
-      color: inherit;
-    }
-    .footer-copyright {
-      margin-top: 0.5em;
-      opacity: 0.93;
-      font-size: 0.95em;
     }
 
     /* (hero-media wheel removed; hero background itself now animates) */
@@ -800,7 +674,12 @@
       }
     }
 
-    /* Hero video shows on all screen sizes */
+    /* On smaller screens, keep hero as clean static image (no video) to avoid glitches */
+    @media (max-width: 768px) {
+      .hero-bg .hero-video {
+        display: none;
+      }
+    }
 
     @media (max-width: 800px) {
       .catalogue-section {
@@ -826,46 +705,11 @@
       .catalogue-title {
         font-size: 1.3rem;
       }
-      .catalogue-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 1rem;
-        padding: 0 0.5rem;
-      }
-      .product-card {
-        opacity: 1;
-      }
-      .brand-logo {
-        width: 60px;
-        height: 60px;
-      }
-      .brand-text-main {
-        font-size: 1.25rem;
-      }
-      .footer-inner {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      .footer-image-wrap {
-        order: 1;
-        max-width: 100%;
-        width: 100%;
-        max-height: 200px;
-      }
       .footer-content {
-        order: 0;
         font-size: 0.9em;
       }
       .footer {
-        padding: 1.1rem 0.5rem 1rem 0.5rem;
-      }
-      .footer-actions {
-        flex-direction: column;
-        width: 100%;
-        max-width: 280px;
-      }
-      .footer-action-btn {
-        width: 100%;
-        justify-content: center;
+        padding: 1.1rem 0.1rem 1rem 0.1rem;
       }
     }
     /* Hide scrollbars in webkit browsers for smooth UI */
@@ -879,10 +723,9 @@
       <div class="brand">
         <img
           class="brand-logo"
-          src="./assets/logo.png"
-          alt="Pottery Wheel logo"
-          onerror="this.onerror=null;this.src='./assets/logo.jpg';">
-        <div class="brand-text-wrap">
+          src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=160&q=80"
+          alt="Pottery Wheel logo">
+        <div>
           <div class="brand-text-main">Pottery Wheel</div>
           <div class="brand-text-sub">Handmade Traditional Clay Pots</div>
         </div>
@@ -910,7 +753,8 @@
         loop
         playsinline
         webkit-playsinline
-        preload="auto">
+        preload="auto"
+        poster="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=1200&q=80">
         <source src="./assets/4754253_Artists_Workshop_1920x1080 (1).mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -923,7 +767,7 @@
           Authentic handcrafted pottery made with tradition and passion.
         </div>
         <div class="hero-cta-group">
-          <button class="btn" onclick="openContactModal('contact')">Contact Us</button>
+          <button class="btn" onclick="scrollToCatalogue()">Contact Us</button>
           <div class="contact-note">
             Balaji: 9966134995 &nbsp;|&nbsp; Yash: 9182140260
           </div>
@@ -938,25 +782,23 @@
     </div>
   </section>
 
-  <!-- POTTERY COLLECTION (single section: add form + grid) -->
+  <!-- ADMIN UPLOAD -->
+  <section class="upload-section">
+    <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
+    <form id="adminForm" class="admin-form">
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
+      <label for="productPrice">Product Price (₹)</label>
+      <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
+      <label for="productImage">Product Image</label>
+      <input type="file" id="productImage" accept="image/*" required>
+      <button type="submit" class="btn">Upload Item</button>
+    </form>
+  </section>
+
+  <!-- CATALOGUE -->
   <section class="catalogue-section" id="catalogueSection">
-    <div class="upload-section">
-      <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> My Pottery Collection</div>
-      <form id="adminForm" class="admin-form">
-        <input type="hidden" id="editingProductId" value="">
-        <label for="productName">Product Name</label>
-        <input type="text" id="productName" placeholder="e.g. Terracotta Vase (optional)">
-        <label for="productPrice">Product Price (₹)</label>
-        <input type="number" id="productPrice" placeholder="e.g. 799 (optional)" min="0" step="any">
-        <label for="productImage">Product Image <span style="font-weight:400;opacity:0.85;">(required)</span></label>
-        <input type="file" id="productImage" accept="image/*" required>
-        <p class="admin-form-hint">Name and price optional — you can add or edit them later.</p>
-        <button type="submit" class="btn" id="adminFormSubmitBtn">Upload Item</button>
-      </form>
-    </div>
-    <div class="catalogue-heading-wrap">
-      <h2 class="catalogue-title"><span class="catalogue-title-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5 1 3 5 3 10c0 6 2 11 9 13 7-2 9-7 9-13 0-5-2-9-9-9z"/></svg></span> My Pottery Collection</h2>
-    </div>
+    <h2 class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Pottery Collection</h2>
     <div class="catalogue-grid" id="catalogueGrid"></div>
     <div class="load-more-container">
       <button id="loadMoreBtn" class="btn" style="margin-top:1em;">Load More</button>
@@ -965,38 +807,34 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <span class="footer-pot-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-3 0-5 2-5 5v1H4v11h16V8h-3V7c0-3-2-5-5-5zm0 2c1.7 0 3 1.3 3 3v2H9V7c0-1.7 1.3-3 3-3zm-5 6h10v7H7V10z"/></svg></span> Pottery Wheel
-        </div>
-        <div class="footer-contact">
-          <div>
-            <i class='bx bx-phone'></i> Balaji: 9966134995 | Yash: 9182140260
-          </div>
-          <div style="margin-top:0.2em;">
-            <i class='bx bx-envelope'></i> Email: balajibima9966@gmail.com
-          </div>
-        </div>
-        <div class="footer-actions">
-          <a class="footer-action-btn call" href="tel:+919966134995" aria-label="Call Balaji">
-            <i class='bx bx-phone-call'></i> Call Now
-          </a>
-          <a class="footer-action-btn whatsapp" href="https://wa.me/919966134995" target="_blank" rel="noopener noreferrer" aria-label="Message on WhatsApp">
-            <i class='bx bxl-whatsapp'></i> Message on WhatsApp
-          </a>
-        </div>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
-          <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
-          <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
-          <a href="https://wa.me/919966134995" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
-        </div>
-        <div class="footer-copyright">© 2024 MittiKala – All rights reserved.</div>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <i class='bx bx-bowl-hot'></i> Pottery Wheel
       </div>
-      <div class="footer-image-wrap" aria-hidden="true">
-        <img src="./assets/footer%20new.png" alt="Decorative pottery" onerror="this.src='./assets/footer%20new.jpg';this.onerror=null;">
+      <div class="footer-contact">
+        <div>
+          <i class='bx bx-phone'></i> Balaji: 9966134995 |
+          <i class='bx bx-phone'></i> Yash: 9182140260
+        </div>
+        <div style="margin-top:0.2em;">
+          <i class='bx bx-envelope'></i> balajibima9966@gmail.com
+        </div>
       </div>
+      <div class="footer-actions">
+        <button class="footer-action-btn call" type="button" onclick="openContactModal('call')">
+          <i class='bx bx-phone-call'></i> Call Now
+        </button>
+        <button class="footer-action-btn whatsapp" type="button" onclick="openContactModal('whatsapp')">
+          <i class='bx bxl-whatsapp'></i> Message on WhatsApp
+        </button>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+        <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+        <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
+        <a href="#" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+      <div style="margin-top:0.5em;opacity:0.93;">© 2024 MittiKala – All rights reserved.</div>
     </div>
   </footer>
 
@@ -1009,7 +847,6 @@
       <div class="contact-modal-numbers">
         <div><strong>Balaji</strong>: 9966134995</div>
         <div><strong>Yash</strong>: 9182140260</div>
-        <div><strong>Email</strong>: balajibima9966@gmail.com</div>
       </div>
       <div style="font-size:0.9rem;opacity:0.9;">
         You can reach us by call or WhatsApp using the numbers above.
@@ -1052,14 +889,65 @@
 
   <!-- JS: Site logic and interactivity -->
   <script>
-    // Pottery collection – start with one sample so mobile grid always shows something
-    var defaultSample = {
-      id: 'sample',
-      name: 'Sample – Add your own above',
-      price: 0,
-      image: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"><rect fill="#e8ddd0" width="200" height="200"/><text x="100" y="100" font-size="14" fill="#8b6914" text-anchor="middle" dominant-baseline="middle">Pottery</text></svg>')
-    };
-    var products = [defaultSample];
+    // Demo product data (simulate database)
+    let products = [
+      {
+        name: 'Decorative Stacked Matka Set',
+        price: 299,
+        stock: 100,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-0efa0a0b-60c8-447c-a439-55448fec98b0.png'
+      },
+      {
+        name: 'Traditional Clay Pottery Set (12 pcs)',
+        price: 300,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-85027b8e-f2d3-48c8-a747-ec981e32303c.png'
+      },
+      {
+        name: 'Single Traditional Clay Pot',
+        price: 25,
+        image: 'file:///C:/Users/share/.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-85027b8e-f2d3-48c8-a747-ec981e32303c.png'
+      },
+      {
+        name: 'Handmade Terracotta Vase',
+        price: 699,
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Classic Clay Tea Set',
+        price: 1199,
+        image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Rustic Pottery Mug',
+        price: 349,
+        image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Decorative Earthen Bowl',
+        price: 429,
+        image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Artisan Clay Planter',
+        price: 520,
+        image: 'https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Miniature Diya Set',
+        price: 259,
+        image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Traditional Clay Matka',
+        price: 649,
+        image: 'https://images.unsplash.com/photo-1468578500627-4d7e1c7dcad5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        name: 'Painted Clay Plate',
+        price: 380,
+        image: 'https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+      }
+    ];
 
     // ORDER MODAL HELPERS
     const orderModalOverlay = document.getElementById('orderModalOverlay');
@@ -1129,7 +1017,6 @@
         if (e.key === 'Escape') {
           closeImageLightbox();
           closeOrderModal();
-          closeContactModal();
         }
       });
     }
@@ -1142,8 +1029,6 @@
       if (!contactModalOverlay || !contactModalSubtitle) return;
       if (type === 'whatsapp') {
         contactModalSubtitle.textContent = 'Contact us on WhatsApp using these numbers:';
-      } else if (type === 'contact') {
-        contactModalSubtitle.textContent = 'Reach us at:';
       } else {
         contactModalSubtitle.textContent = 'Call us on the numbers below:';
       }
@@ -1165,125 +1050,36 @@
       });
     }
 
-    // Save to localStorage + sessionStorage; load localStorage first, then sessionStorage (reliable on mobile)
-    var STORAGE_KEY = 'mittikala_products';
-
+    // Save to localStorage for demo
     function getStoredProducts() {
-      try {
-        var saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          var parsed = JSON.parse(saved);
-          if (parsed && Array.isArray(parsed)) return parsed;
-        }
-        saved = sessionStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          var parsed = JSON.parse(saved);
-          if (parsed && Array.isArray(parsed)) return parsed;
-        }
-      } catch (e) {}
-      return null;
-    }
-
-    function loadProductsFromStorage() {
-      var stored = getStoredProducts();
-      if (stored && Array.isArray(stored) && stored.length > 0) {
-        products = stored.slice();
-        return true;
-      }
-      return false;
-    }
-
-    function ensureGridSyncedFromStorage() {
-      var hadProducts = products.length > 0;
-      var loaded = loadProductsFromStorage();
-      var grid = document.getElementById('catalogueGrid');
-      if (!grid) return;
-      var isEmptyMsg = !!grid.querySelector('.catalogue-empty');
-      var cardCount = grid.children.length;
-      var onlySample = cardCount === 1 && products.length === 1 && products[0] && (products[0].id === 'sample' || (products[0].name && products[0].name.indexOf('Sample') === 0));
-      if (loaded || (products.length > 0 && (isEmptyMsg || cardCount === 0 || onlySample))) {
-        grid.innerHTML = '';
-        displayedCount = 0;
-        renderProducts(true);
-      }
+      const saved = localStorage.getItem('mittikala_products');
+      return saved ? JSON.parse(saved) : null;
     }
 
     function saveProducts() {
-      var json = JSON.stringify(products);
-      try {
-        localStorage.setItem(STORAGE_KEY, json);
-        sessionStorage.setItem(STORAGE_KEY, json);
-      } catch (err) {
-        try { sessionStorage.setItem(STORAGE_KEY, json); } catch (e) {}
-        if (err.name === 'QuotaExceededError' || err.code === 22) {
-          alert('Storage full. Try a smaller image or remove some items.');
-        }
-      }
-    }
-
-    function compressImageIfNeeded(dataURL, maxWidth, quality, cb) {
-      if (!dataURL || dataURL.length < 300000) {
-        cb(dataURL);
-        return;
-      }
-      var img = new Image();
-      img.onload = function() {
-        var w = img.width, h = img.height;
-        if (w <= maxWidth && dataURL.length < 400000) {
-          cb(dataURL);
-          return;
-        }
-        var scale = Math.min(1, maxWidth / w);
-        var cw = Math.round(w * scale), ch = Math.round(h * scale);
-        var canvas = document.createElement('canvas');
-        canvas.width = cw;
-        canvas.height = ch;
-        var ctx = canvas.getContext('2d');
-        if (!ctx) { cb(dataURL); return; }
-        ctx.drawImage(img, 0, 0, cw, ch);
-        try {
-          var out = canvas.toDataURL('image/jpeg', quality);
-          cb(out || dataURL);
-        } catch (e) {
-          cb(dataURL);
-        }
-      };
-      img.onerror = function() { cb(dataURL); };
-      img.src = dataURL;
+      localStorage.setItem('mittikala_products', JSON.stringify(products));
     }
 
     // Product card rendering logic
+    const cardsPerPage = 4;
+    let displayedCount = 0;
     const catalogueGrid = document.getElementById('catalogueGrid');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
-    let displayedCount = 0;
-    function getCardsPerPage() {
-      if (typeof window === 'undefined') return 20;
-      return window.innerWidth <= 650 ? 999 : 4;
-    }
 
-    function renderProducts(reset) {
-      var grid = document.getElementById('catalogueGrid');
-      if (!grid) return;
-      if (reset !== false) {
-        grid.innerHTML = '';
+    function renderProducts(reset = false) {
+      if (reset) {
+        catalogueGrid.innerHTML = '';
         displayedCount = 0;
       }
-      if (products.length === 0) {
-        grid.innerHTML = '<p class="catalogue-empty">No items yet. Add one using the form above.</p>';
-        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-        return;
-      }
-      displayedCount = 0;
-      var cardsPerPage = getCardsPerPage();
-      var start = displayedCount;
-      var end = Math.min(products.length, displayedCount + cardsPerPage);
+      const start = displayedCount;
+      const end = Math.min(products.length, displayedCount + cardsPerPage);
 
       for (let i = start; i < end; ++i) {
         const p = products[i];
         const card = document.createElement('div');
         card.className = 'product-card';
         card.tabIndex = 0;
-        card.style.opacity = '1';
+        card.style.opacity = 0;
 
         const stockHtml = typeof p.stock === 'number'
           ? `<div class="product-stock">Available: ${p.stock}</div>`
@@ -1298,10 +1094,6 @@
               <div class="product-name">${p.name}</div>
               <div class="product-price">₹${p.price}</div>
               ${stockHtml}
-              <div class="product-card-actions">
-                <button type="button" class="btn-edit" aria-label="Edit item"><i class='bx bx-edit-alt'></i> Edit</button>
-                <button type="button" class="btn-delete" aria-label="Delete item"><i class='bx bx-trash'></i> Delete</button>
-              </div>
             </div>
             <button type="button" class="product-card-cta" aria-label="Buy or view order details"><i class='bx bx-right-arrow-alt'></i></button>
           </div>
@@ -1323,45 +1115,21 @@
           });
         }
 
-        const editBtn = card.querySelector('.btn-edit');
-        const delBtn = card.querySelector('.btn-delete');
-        const productIndex = i;
-        if (editBtn) {
-          editBtn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            document.getElementById("productName").value = p.name;
-            document.getElementById("productPrice").value = p.price;
-            editingProductIndex = productIndex;
-            if (editingProductIdEl) editingProductIdEl.value = '1';
-            if (adminFormSubmitBtn) adminFormSubmitBtn.textContent = 'Update Item';
-            if (productImageInput) {
-              productImageInput.setAttribute('data-optional', '1');
-              productImageInput.value = '';
-              productImageInput.removeAttribute('required');
-            }
-          });
-        }
-        if (delBtn) {
-          delBtn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            if (productIndex >= 0 && productIndex < products.length) {
-              products.splice(productIndex, 1);
-              saveProducts();
-              renderProducts(true);
-            }
-          });
-        }
-
-        grid.appendChild(card);
+        catalogueGrid.appendChild(card);
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.36s var(--transition), transform 0.47s var(--transition)';
+          card.style.opacity = 1;
+          card.style.transform = 'translateY(0) scale(1)';
+        }, 40 * (i - start));
       }
 
       displayedCount = end;
-      if (loadMoreBtn) loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
+      loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
     }
     function loadMoreProducts() {
       renderProducts(false);
     }
-    if (loadMoreBtn) loadMoreBtn.addEventListener('click', loadMoreProducts);
+    loadMoreBtn.addEventListener('click', loadMoreProducts);
 
     // Infinite scroll for mobile
     window.addEventListener('scroll', () => {
@@ -1381,156 +1149,43 @@
       }
     });
 
-    // ADMIN FORM LOGIC – add/edit items, persist to localStorage
-    const adminForm = document.getElementById("adminForm");
-    const editingProductIdEl = document.getElementById("editingProductId");
-    const adminFormSubmitBtn = document.getElementById("adminFormSubmitBtn");
-    const productImageInput = document.getElementById("productImage");
-    let editingProductIndex = -1;
+    // ADMIN FORM LOGIC
+    document.getElementById("adminForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("productName").value.trim();
+      const price = document.getElementById("productPrice").value;
+      const fileInput = document.getElementById("productImage");
+      if (!fileInput.files.length) return;
 
-    function exitEditMode() {
-      editingProductIndex = -1;
-      if (editingProductIdEl) editingProductIdEl.value = '';
-      if (adminForm) adminForm.reset();
-      if (productImageInput) {
-        productImageInput.removeAttribute('data-optional');
-        productImageInput.setAttribute('required', 'required');
-      }
-      if (adminFormSubmitBtn) {
-        adminFormSubmitBtn.textContent = 'Upload Item';
-        adminFormSubmitBtn.style.display = '';
-        adminFormSubmitBtn.disabled = false;
-      }
-    }
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const imageURL = ev.target.result;
+        products.unshift({
+          name,
+          price: parseFloat(price),
+          image: imageURL
+        });
+        saveProducts();
+        renderProducts(true);
+      };
+      reader.readAsDataURL(file);
 
-    if (adminForm) {
-      adminForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        var nameEl = document.getElementById("productName");
-        var priceEl = document.getElementById("productPrice");
-        var fileInput = document.getElementById("productImage");
-        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-          if (fileInput) { fileInput.focus(); fileInput.reportValidity(); }
-          return;
-        }
-        if (nameEl && (!nameEl.value || !nameEl.value.trim())) nameEl.value = 'New Item';
-        if (priceEl && (priceEl.value === '' || isNaN(parseFloat(priceEl.value)) || parseFloat(priceEl.value) < 0)) priceEl.value = '0';
-        var name = nameEl && nameEl.value ? nameEl.value.trim() : 'New Item';
-        var priceStr = priceEl && priceEl.value ? priceEl.value.trim() : '0';
-        var priceNum = (priceStr !== '' && !isNaN(parseFloat(priceStr)) && parseFloat(priceStr) >= 0) ? parseFloat(priceStr) : 0;
-        var isEditing = editingProductIndex >= 0;
-
-        function doAdd(imageURL) {
-          try {
-            products.unshift({
-              id: Date.now(),
-              name: name,
-              price: priceNum,
-              image: imageURL
-            });
-            saveProducts();
-            var grid = document.getElementById('catalogueGrid');
-            if (grid) grid.innerHTML = '';
-            displayedCount = 0;
-            renderProducts(true);
-            exitEditMode();
-            requestAnimationFrame(function() {
-              var section = document.getElementById('catalogueSection');
-              if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-            if (adminForm.elements[0]) adminForm.elements[0].focus();
-          } catch (err) {
-            alert('Upload failed: ' + (err.message || 'Please try a smaller image.'));
-            if (adminFormSubmitBtn) {
-              adminFormSubmitBtn.textContent = 'Upload Item';
-              adminFormSubmitBtn.disabled = false;
-            }
-          }
-        }
-
-        function doUpdate(imageURL) {
-          try {
-            if (editingProductIndex >= 0 && editingProductIndex < products.length) {
-              products[editingProductIndex].name = name;
-              products[editingProductIndex].price = priceNum;
-              if (imageURL) products[editingProductIndex].image = imageURL;
-              saveProducts();
-              renderProducts(true);
-            }
-            exitEditMode();
-            if (adminForm.elements[0]) adminForm.elements[0].focus();
-          } catch (err) {
-            alert('Update failed: ' + (err.message || 'Unknown error'));
-            if (adminFormSubmitBtn) {
-              adminFormSubmitBtn.textContent = 'Update Item';
-              adminFormSubmitBtn.disabled = false;
-            }
-          }
-        }
-
-        if (fileInput && fileInput.files && fileInput.files.length > 0) {
-          const file = fileInput.files[0];
-          if (file.size > 4 * 1024 * 1024) {
-            alert('Image is too large (max 4 MB). Please choose a smaller image.');
-            return;
-          }
-          const reader = new FileReader();
-          reader.onload = function(ev) {
-            if (!ev || !ev.target || !ev.target.result) {
-              alert('Could not read the image. Try another file.');
-              if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = false;
-              return;
-            }
-            var rawURL = ev.target.result;
-            compressImageIfNeeded(rawURL, 800, 0.75, function(imageURL) {
-              if (isEditing) doUpdate(imageURL);
-              else doAdd(imageURL);
-            });
-          };
-          reader.onerror = function() {
-            alert('Could not read the image file. Try another image (e.g. JPG or PNG).');
-            if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = false;
-          };
-          if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = true;
-          reader.readAsDataURL(file);
-        } else {
-          if (isEditing && editingProductIndex >= 0 && products[editingProductIndex]) {
-            doUpdate(products[editingProductIndex].image);
-          }
-        }
-      });
-    }
+      // Reset form
+      this.reset();
+      this.elements[0].focus();
+    });
 
     function scrollToCatalogue() {
       document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      loadProductsFromStorage();
-      if (products.length === 0) {
-        products = [defaultSample];
-        saveProducts();
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = getStoredProducts();
+      if (stored) {
+        products = stored;
       }
-      var grid = document.getElementById('catalogueGrid');
-      if (grid) {
-        grid.innerHTML = '';
-        displayedCount = 0;
-      }
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          renderProducts(true);
-        });
-      });
-
-      [400, 800, 1500].forEach(function(ms) {
-        setTimeout(ensureGridSyncedFromStorage, ms);
-      });
-
-      document.addEventListener('visibilitychange', function() {
-        if (document.visibilityState === 'visible') {
-          setTimeout(ensureGridSyncedFromStorage, 100);
-        }
-      });
+      renderProducts(true);
 
       // Fade hero video in after it can play to avoid initial glitch
       const heroVideo = document.querySelector('.hero-video');

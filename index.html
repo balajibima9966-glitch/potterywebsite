@@ -243,6 +243,7 @@
     .catalogue-section {
       background: var(--beige);
       padding: 4rem 1rem 3rem 1rem;
+      overflow: visible;
     }
     .catalogue-heading-wrap {
       margin-top: 1.75rem;
@@ -276,6 +277,7 @@
       gap: 2rem;
       max-width: 1130px;
       margin: 0 auto;
+      min-height: 60px;
     }
     .product-card {
       background: #ffffff;
@@ -815,6 +817,14 @@
       .catalogue-title {
         font-size: 1.3rem;
       }
+      .catalogue-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+        padding: 0 0.5rem;
+      }
+      .product-card {
+        opacity: 1;
+      }
       .brand-logo {
         width: 60px;
         height: 60px;
@@ -1193,10 +1203,12 @@
     }
 
     // Product card rendering logic
-    const cardsPerPage = 4;
-    let displayedCount = 0;
     const catalogueGrid = document.getElementById('catalogueGrid');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
+    let displayedCount = 0;
+    function getCardsPerPage() {
+      return (typeof window !== 'undefined' && window.innerWidth <= 650) ? 6 : 4;
+    }
 
     function renderProducts(reset = false) {
       if (!catalogueGrid) return;
@@ -1209,6 +1221,7 @@
         if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         return;
       }
+      const cardsPerPage = getCardsPerPage();
       const start = displayedCount;
       const end = Math.min(products.length, displayedCount + cardsPerPage);
 
@@ -1217,7 +1230,7 @@
         const card = document.createElement('div');
         card.className = 'product-card';
         card.tabIndex = 0;
-        card.style.opacity = 0;
+        card.style.opacity = '1';
 
         const stockHtml = typeof p.stock === 'number'
           ? `<div class="product-stock">Available: ${p.stock}</div>`
@@ -1287,15 +1300,10 @@
         }
 
         catalogueGrid.appendChild(card);
-        setTimeout(() => {
-          card.style.transition = 'opacity 0.36s var(--transition), transform 0.47s var(--transition)';
-          card.style.opacity = 1;
-          card.style.transform = 'translateY(0) scale(1)';
-        }, 40 * (i - start));
       }
 
       displayedCount = end;
-      loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
+      if (loadMoreBtn) loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
     }
     function loadMoreProducts() {
       renderProducts(false);

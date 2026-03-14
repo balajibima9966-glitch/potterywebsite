@@ -304,6 +304,8 @@
     .product-card-info {
       flex: 1;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
     .product-name {
       font-size: 1.15rem;
@@ -345,20 +347,24 @@
       color: #fff;
     }
     .product-card-actions {
-      display: flex;
+      display: flex !important;
       flex-wrap: wrap;
       gap: 0.4rem;
       margin-top: 0.5rem;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
     .btn-edit, .btn-delete {
-      display: inline-flex;
+      display: inline-flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.35rem 0.6rem;
-      font-size: 0.8rem;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.85rem;
       border-radius: 8px;
       border: 1px solid #c44a2a;
-      background: rgba(196,74,42,0.1);
+      background: rgba(196,74,42,0.15);
       color: #c44a2a;
       cursor: pointer;
       font-family: inherit;
@@ -751,7 +757,7 @@
           class="brand-logo"
           src="./assets/logo.png"
           alt="Pottery Wheel logo"
-          onerror="this.onerror=null;this.src='./logo.jpg';">
+          onerror="this.onerror=null;this.src='./assets/logo.jpg';">
         <div>
           <div class="brand-text-main">Pottery Wheel</div>
           <div class="brand-text-sub">Handmade Traditional Clay Pots</div>
@@ -1088,6 +1094,7 @@
     }
 
     // Product card rendering logic
+    let editingProductIndex = -1;
     const cardsPerPage = 4;
     let displayedCount = 0;
     const catalogueGrid = document.getElementById('catalogueGrid');
@@ -1208,8 +1215,6 @@
     });
 
     // ADMIN FORM LOGIC
-    let editingProductIndex = -1;
-
     function exitEditMode() {
       editingProductIndex = -1;
       const form = document.getElementById("adminForm");
@@ -1281,6 +1286,15 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      var logoImg = document.querySelector('.brand-logo');
+      if (logoImg) {
+        logoImg.src = './assets/logo.png';
+        logoImg.onerror = function() {
+          this.onerror = null;
+          this.src = './assets/logo.jpg';
+        };
+      }
+
       const stored = getStoredProducts();
       if (stored) {
         products = stored;

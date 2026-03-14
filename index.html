@@ -1122,12 +1122,55 @@
 
     // Save to localStorage for demo
     function getStoredProducts() {
-      const saved = localStorage.getItem('mittikala_products');
-      return saved ? JSON.parse(saved) : null;
+      try {
+        const saved = localStorage.getItem('mittikala_products');
+        return saved ? JSON.parse(saved) : null;
+      } catch (e) {
+        return null;
+      }
     }
 
     function saveProducts() {
-      localStorage.setItem('mittikala_products', JSON.stringify(products));
+      try {
+        localStorage.setItem('mittikala_products', JSON.stringify(products));
+      } catch (err) {
+        if (err.name === 'QuotaExceededError' || err.code === 22) {
+          alert('Storage full. Try using a smaller image (e.g. under 500 KB) or remove some items.');
+        } else {
+          alert('Could not save: ' + (err.message || 'Unknown error'));
+        }
+      }
+    }
+
+    function compressImageIfNeeded(dataURL, maxWidth, quality, cb) {
+      if (!dataURL || dataURL.length < 300000) {
+        cb(dataURL);
+        return;
+      }
+      var img = new Image();
+      img.onload = function() {
+        var w = img.width, h = img.height;
+        if (w <= maxWidth && dataURL.length < 400000) {
+          cb(dataURL);
+          return;
+        }
+        var scale = Math.min(1, maxWidth / w);
+        var cw = Math.round(w * scale), ch = Math.round(h * scale);
+        var canvas = document.createElement('canvas');
+        canvas.width = cw;
+        canvas.height = ch;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) { cb(dataURL); return; }
+        ctx.drawImage(img, 0, 0, cw, ch);
+        try {
+          var out = canvas.toDataURL('image/jpeg', quality);
+          cb(out || dataURL);
+        } catch (e) {
+          cb(dataURL);
+        }
+      };
+      img.onerror = function() { cb(dataURL); };
+      img.src = dataURL;
     }
 
     // Product card rendering logic
@@ -1137,6 +1180,7 @@
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
     function renderProducts(reset = false) {
+      if (!catalogueGrid) return;
       if (reset) {
         catalogueGrid.innerHTML = '';
         displayedCount = 0;
@@ -1282,54 +1326,103 @@
     if (adminForm) {
       adminForm.addEventListener("submit", function(e) {
         e.preventDefault();
-        const name = document.getElementById("productName").value.trim();
-        const price = document.getElementById("productPrice").value;
+        const nameEl = document.getElementById("productName");
+        const priceEl = document.getElementById("productPrice");
         const fileInput = document.getElementById("productImage");
+        const name = nameEl && nameEl.value ? nameEl.value.trim() : '';
+        const price = priceEl && priceEl.value ? priceEl.value.trim() : '';
         const isEditing = editingProductIndex >= 0;
 
-        if (!isEditing && (!fileInput || !fileInput.files.length)) {
-          fileInput.setAttribute('required', 'required');
-          fileInput.reportValidity();
+        if (!name) {
+          if (nameEl) nameEl.focus();
+          return;
+        }
+        const priceNum = parseFloat(price);
+        if (isNaN(priceNum) || priceNum < 0) {
+          if (priceEl) priceEl.focus();
           return;
         }
 
-        function doAdd(imageURL) {
-          products.unshift({
-            id: Date.now(),
-            name: name,
-            price: parseFloat(price),
-            image: imageURL
-          });
-          saveProducts();
-          renderProducts(true);
-          exitEditMode();
-          var gridEl = document.getElementById('catalogueGrid');
-          if (gridEl && gridEl.firstElementChild) {
-            gridEl.firstElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (!isEditing) {
+          if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            if (fileInput) {
+              fileInput.setAttribute('required', 'required');
+              fileInput.reportValidity();
+              fileInput.focus();
+            }
+            return;
           }
-          if (adminForm.elements[0]) adminForm.elements[0].focus();
+        }
+
+        function doAdd(imageURL) {
+          try {
+            products.unshift({
+              id: Date.now(),
+              name: name,
+              price: priceNum,
+              image: imageURL
+            });
+            saveProducts();
+            renderProducts(true);
+            exitEditMode();
+            var gridEl = document.getElementById('catalogueGrid');
+            if (gridEl && gridEl.firstElementChild && !gridEl.firstElementChild.classList.contains('catalogue-empty')) {
+              gridEl.firstElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            if (adminForm.elements[0]) adminForm.elements[0].focus();
+          } catch (err) {
+            alert('Upload failed: ' + (err.message || 'Please try a smaller image.'));
+            if (adminFormSubmitBtn) {
+              adminFormSubmitBtn.textContent = 'Upload Item';
+              adminFormSubmitBtn.disabled = false;
+            }
+          }
         }
 
         function doUpdate(imageURL) {
-          if (editingProductIndex >= 0 && editingProductIndex < products.length) {
-            products[editingProductIndex].name = name;
-            products[editingProductIndex].price = parseFloat(price);
-            if (imageURL) products[editingProductIndex].image = imageURL;
-            saveProducts();
-            renderProducts(true);
+          try {
+            if (editingProductIndex >= 0 && editingProductIndex < products.length) {
+              products[editingProductIndex].name = name;
+              products[editingProductIndex].price = priceNum;
+              if (imageURL) products[editingProductIndex].image = imageURL;
+              saveProducts();
+              renderProducts(true);
+            }
+            exitEditMode();
+            if (adminForm.elements[0]) adminForm.elements[0].focus();
+          } catch (err) {
+            alert('Update failed: ' + (err.message || 'Unknown error'));
+            if (adminFormSubmitBtn) {
+              adminFormSubmitBtn.textContent = 'Update Item';
+              adminFormSubmitBtn.disabled = false;
+            }
           }
-          exitEditMode();
-          if (adminForm.elements[0]) adminForm.elements[0].focus();
         }
 
-        if (fileInput.files.length) {
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
           const file = fileInput.files[0];
+          if (file.size > 4 * 1024 * 1024) {
+            alert('Image is too large (max 4 MB). Please choose a smaller image.');
+            return;
+          }
           const reader = new FileReader();
           reader.onload = function(ev) {
-            const imageURL = ev.target.result;
-            if (isEditing) doUpdate(imageURL);
-            else doAdd(imageURL);
+            if (!ev || !ev.target || !ev.target.result) {
+              alert('Could not read the image. Try another file.');
+              if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = false;
+              return;
+            }
+            var rawURL = ev.target.result;
+            compressImageIfNeeded(rawURL, 800, 0.75, function(imageURL) {
+              if (isEditing) doUpdate(imageURL);
+              else doAdd(imageURL);
+            });
           };
+          reader.onerror = function() {
+            alert('Could not read the image file. Try another image (e.g. JPG or PNG).');
+            if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = false;
+          };
+          if (adminFormSubmitBtn) adminFormSubmitBtn.disabled = true;
           reader.readAsDataURL(file);
         } else {
           if (isEditing && editingProductIndex >= 0 && products[editingProductIndex]) {

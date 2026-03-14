@@ -415,6 +415,90 @@
       margin-top: 1.2rem;
       width: 100%;
     }
+    .uploaded-items-wrap {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e8ddd0;
+    }
+    .uploaded-items-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--clay);
+      margin-bottom: 1rem;
+      font-family: 'Cinzel', serif;
+    }
+    .uploaded-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .uploaded-item-card {
+      background: #faf8f5;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid #e8ddd0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .uploaded-item-card .uploaded-item-img-wrap {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f0ea;
+      overflow: hidden;
+    }
+    .uploaded-item-card .uploaded-item-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .uploaded-item-card .uploaded-item-info {
+      padding: 0.65rem 0.75rem;
+    }
+    .uploaded-item-card .uploaded-item-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #2c1810;
+      margin-bottom: 0.2rem;
+      line-height: 1.25;
+    }
+    .uploaded-item-card .uploaded-item-price {
+      font-size: 0.9rem;
+      color: var(--terracotta);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .uploaded-item-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .btn-edit, .btn-delete {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-edit {
+      background: #e8d5c4;
+      color: #5a341c;
+    }
+    .btn-edit:hover {
+      background: #d4b896;
+    }
+    .btn-delete {
+      background: #e8c4c4;
+      color: #8b3a3a;
+    }
+    .btn-delete:hover {
+      background: #d4a0a0;
+    }
     .footer {
       background-color: #8B5A2B;
       background-image: none;
@@ -871,14 +955,19 @@
   <section class="upload-section">
     <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
     <form id="adminForm" class="admin-form">
+      <input type="hidden" id="editingProductId" value="">
       <label for="productName">Product Name</label>
       <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
       <label for="productPrice">Product Price (₹)</label>
       <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
       <label for="productImage">Product Image</label>
-      <input type="file" id="productImage" accept="image/*" required>
-      <button type="submit" class="btn">Upload Item</button>
+      <input type="file" id="productImage" accept="image/*">
+      <button type="submit" class="btn" id="adminFormSubmitBtn">Upload Item</button>
     </form>
+    <div class="uploaded-items-wrap">
+      <h3 class="uploaded-items-title">Your uploaded items</h3>
+      <div class="uploaded-items-grid" id="uploadedItemsGrid"></div>
+    </div>
   </section>
 
   <!-- CATALOGUE -->
@@ -1250,32 +1339,134 @@
       }
     });
 
-    // ADMIN FORM LOGIC
-    document.getElementById("adminForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("productName").value.trim();
-      const price = document.getElementById("productPrice").value;
-      const fileInput = document.getElementById("productImage");
-      if (!fileInput.files.length) return;
+    // ADMIN FORM LOGIC – add/edit items, persist to localStorage
+    const adminForm = document.getElementById("adminForm");
+    const editingProductIdEl = document.getElementById("editingProductId");
+    const adminFormSubmitBtn = document.getElementById("adminFormSubmitBtn");
+    const productImageInput = document.getElementById("productImage");
+    let editingProductIndex = -1;
 
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const imageURL = ev.target.result;
-        products.unshift({
-          name,
-          price: parseFloat(price),
-          image: imageURL
-        });
-        saveProducts();
-        renderProducts(true);
-      };
-      reader.readAsDataURL(file);
+    function exitEditMode() {
+      editingProductIndex = -1;
+      if (editingProductIdEl) editingProductIdEl.value = '';
+      if (adminFormSubmitBtn) adminFormSubmitBtn.textContent = 'Upload Item';
+      if (productImageInput) {
+        productImageInput.removeAttribute('data-optional');
+        productImageInput.setAttribute('required', 'required');
+      }
+      if (adminForm) adminForm.reset();
+    }
 
-      // Reset form
-      this.reset();
-      this.elements[0].focus();
-    });
+    function renderUploadedItems() {
+      const grid = document.getElementById("uploadedItemsGrid");
+      if (!grid) return;
+      const uploaded = products.filter(function(p) { return p.uploaded === true; });
+      grid.innerHTML = '';
+      uploaded.forEach(function(p) {
+        const productIndex = products.indexOf(p);
+        const card = document.createElement('div');
+        card.className = 'uploaded-item-card';
+        card.innerHTML = `
+          <div class="uploaded-item-img-wrap">
+            <img src="${p.image}" alt="${p.name}">
+          </div>
+          <div class="uploaded-item-info">
+            <div class="uploaded-item-name">${p.name}</div>
+            <div class="uploaded-item-price">₹${p.price}</div>
+            <div class="uploaded-item-actions">
+              <button type="button" class="btn-edit" aria-label="Edit item"><i class='bx bx-edit-alt'></i> Edit</button>
+              <button type="button" class="btn-delete" aria-label="Delete item"><i class='bx bx-trash'></i> Delete</button>
+            </div>
+          </div>
+        `;
+        const editBtn = card.querySelector('.btn-edit');
+        const delBtn = card.querySelector('.btn-delete');
+        if (editBtn) {
+          editBtn.addEventListener('click', function() {
+            document.getElementById("productName").value = p.name;
+            document.getElementById("productPrice").value = p.price;
+            editingProductIndex = productIndex;
+            if (editingProductIdEl) editingProductIdEl.value = '1';
+            if (adminFormSubmitBtn) adminFormSubmitBtn.textContent = 'Update Item';
+            if (productImageInput) {
+              productImageInput.setAttribute('data-optional', '1');
+              productImageInput.value = '';
+              productImageInput.removeAttribute('required');
+            }
+          });
+        }
+        if (delBtn) {
+          delBtn.addEventListener('click', function() {
+            if (productIndex !== -1) {
+              products.splice(productIndex, 1);
+              saveProducts();
+              renderProducts(true);
+              renderUploadedItems();
+            }
+          });
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    if (adminForm) {
+      adminForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const name = document.getElementById("productName").value.trim();
+        const price = document.getElementById("productPrice").value;
+        const fileInput = document.getElementById("productImage");
+        const isEditing = editingProductIndex >= 0;
+
+        if (!isEditing && (!fileInput || !fileInput.files.length)) {
+          fileInput.setAttribute('required', 'required');
+          fileInput.reportValidity();
+          return;
+        }
+
+        function doAdd(imageURL) {
+          products.unshift({
+            id: Date.now(),
+            name: name,
+            price: parseFloat(price),
+            image: imageURL,
+            uploaded: true
+          });
+          saveProducts();
+          renderProducts(true);
+          renderUploadedItems();
+          exitEditMode();
+          if (adminForm.elements[0]) adminForm.elements[0].focus();
+        }
+
+        function doUpdate(imageURL) {
+          if (editingProductIndex >= 0 && editingProductIndex < products.length) {
+            products[editingProductIndex].name = name;
+            products[editingProductIndex].price = parseFloat(price);
+            if (imageURL) products[editingProductIndex].image = imageURL;
+            saveProducts();
+            renderProducts(true);
+            renderUploadedItems();
+          }
+          exitEditMode();
+          if (adminForm.elements[0]) adminForm.elements[0].focus();
+        }
+
+        if (fileInput.files.length) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            const imageURL = ev.target.result;
+            if (isEditing) doUpdate(imageURL);
+            else doAdd(imageURL);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          if (isEditing && editingProductIndex >= 0 && products[editingProductIndex]) {
+            doUpdate(products[editingProductIndex].image);
+          }
+        }
+      });
+    }
 
     function scrollToCatalogue() {
       document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth' });
@@ -1285,8 +1476,15 @@
       const stored = getStoredProducts();
       if (stored) {
         products = stored;
+        products.forEach(function(p) {
+          if (p.uploaded !== true && typeof p.image === 'string' && p.image.indexOf('data:') === 0) {
+            p.uploaded = true;
+          }
+        });
+        saveProducts();
       }
       renderProducts(true);
+      renderUploadedItems();
 
       // Fade hero video in after it can play to avoid initial glitch
       const heroVideo = document.querySelector('.hero-video');

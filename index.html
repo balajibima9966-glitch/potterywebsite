@@ -344,6 +344,32 @@
       background: #c44a2a;
       color: #fff;
     }
+    .product-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .btn-edit, .btn-delete {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #c44a2a;
+      background: rgba(196,74,42,0.1);
+      color: #c44a2a;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-edit:hover, .btn-delete:hover {
+      background: #c44a2a;
+      color: #fff;
+    }
+    .btn-delete { border-color: #8b3a2a; background: rgba(139,58,42,0.1); color: #8b3a2a; }
+    .btn-delete:hover { background: #8b3a2a; color: #fff; }
     .load-more-container {
       text-align: center;
       margin-top: 2.5rem;
@@ -723,8 +749,9 @@
       <div class="brand">
         <img
           class="brand-logo"
-          src="./logo.jpg"
-          alt="Pottery Wheel logo">
+          src="./assets/logo.png"
+          alt="Pottery Wheel logo"
+          onerror="this.onerror=null;this.src='./logo.jpg';">
         <div>
           <div class="brand-text-main">Pottery Wheel</div>
           <div class="brand-text-sub">Handmade Traditional Clay Pots</div>
@@ -1094,6 +1121,10 @@
               <div class="product-name">${p.name}</div>
               <div class="product-price">₹${p.price}</div>
               ${stockHtml}
+              <div class="product-card-actions">
+                <button type="button" class="btn-edit" aria-label="Edit item"><i class='bx bx-edit-alt'></i> Edit</button>
+                <button type="button" class="btn-delete" aria-label="Delete item"><i class='bx bx-trash'></i> Delete</button>
+              </div>
             </div>
             <button type="button" class="product-card-cta" aria-label="Buy or view order details"><i class='bx bx-right-arrow-alt'></i></button>
           </div>
@@ -1112,6 +1143,33 @@
           ctaBtn.addEventListener('click', (ev) => {
             ev.stopPropagation();
             openOrderModal(p);
+          });
+        }
+
+        const productIndex = i;
+        const editBtn = card.querySelector('.btn-edit');
+        const delBtn = card.querySelector('.btn-delete');
+        if (editBtn) {
+          editBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            document.getElementById('productName').value = p.name;
+            document.getElementById('productPrice').value = p.price;
+            editingProductIndex = productIndex;
+            const imgInput = document.getElementById('productImage');
+            if (imgInput) { imgInput.removeAttribute('required'); imgInput.setAttribute('data-optional', '1'); }
+            const submitBtn = document.querySelector('#adminForm button[type="submit"]');
+            if (submitBtn) submitBtn.textContent = 'Update Item';
+            document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+        if (delBtn) {
+          delBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            if (productIndex >= 0 && productIndex < products.length) {
+              products.splice(productIndex, 1);
+              saveProducts();
+              renderProducts(true);
+            }
           });
         }
 
@@ -1150,30 +1208,72 @@
     });
 
     // ADMIN FORM LOGIC
+    let editingProductIndex = -1;
+
+    function exitEditMode() {
+      editingProductIndex = -1;
+      const form = document.getElementById("adminForm");
+      if (form) form.reset();
+      const imgInput = document.getElementById("productImage");
+      if (imgInput) { imgInput.setAttribute('required', 'required'); imgInput.removeAttribute('data-optional'); }
+      const submitBtn = document.querySelector('#adminForm button[type="submit"]');
+      if (submitBtn) submitBtn.textContent = 'Upload Item';
+    }
+
     document.getElementById("adminForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const name = document.getElementById("productName").value.trim();
-      const price = document.getElementById("productPrice").value;
+      const nameEl = document.getElementById("productName");
+      const priceEl = document.getElementById("productPrice");
       const fileInput = document.getElementById("productImage");
-      if (!fileInput.files.length) return;
+      const name = (nameEl && nameEl.value) ? nameEl.value.trim() : '';
+      const price = (priceEl && priceEl.value) ? parseFloat(priceEl.value) : 0;
+      const isEditing = editingProductIndex >= 0;
 
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const imageURL = ev.target.result;
+      if (!isEditing && (!fileInput || !fileInput.files || !fileInput.files.length)) {
+        if (fileInput) { fileInput.focus(); fileInput.reportValidity(); }
+        return;
+      }
+
+      function doAdd(imageURL) {
         products.unshift({
-          name,
-          price: parseFloat(price),
+          name: name || 'New Item',
+          price: isNaN(price) || price < 0 ? 0 : price,
           image: imageURL
         });
         saveProducts();
+        catalogueGrid.innerHTML = '';
+        displayedCount = 0;
         renderProducts(true);
-      };
-      reader.readAsDataURL(file);
+        exitEditMode();
+        if (this.elements[0]) this.elements[0].focus();
+      }
 
-      // Reset form
-      this.reset();
-      this.elements[0].focus();
+      function doUpdate(imageURL) {
+        if (editingProductIndex >= 0 && editingProductIndex < products.length) {
+          products[editingProductIndex].name = name || 'New Item';
+          products[editingProductIndex].price = isNaN(price) || price < 0 ? 0 : price;
+          if (imageURL) products[editingProductIndex].image = imageURL;
+          saveProducts();
+          catalogueGrid.innerHTML = '';
+          displayedCount = 0;
+          renderProducts(true);
+        }
+        exitEditMode();
+        if (this.elements[0]) this.elements[0].focus();
+      }
+
+      if (fileInput.files && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          const imageURL = ev.target.result;
+          if (isEditing) doUpdate.call(e.target, imageURL);
+          else doAdd.call(e.target, imageURL);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        if (isEditing) doUpdate.call(e.target, products[editingProductIndex].image);
+      }
     });
 
     function scrollToCatalogue() {

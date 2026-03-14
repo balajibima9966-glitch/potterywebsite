@@ -425,13 +425,13 @@
       gap: 0.5rem;
     }
     .about-pottery-text {
-      font-size: 1rem;
-      line-height: 1.65;
+      font-size: 0.92rem;
+      line-height: 1.6;
       color: #5a341c;
       opacity: 0.95;
     }
     .about-pottery-lang {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--terracotta);
       margin-bottom: 0.25rem;
@@ -495,35 +495,42 @@
     }
     .footer {
       background-color: #8B5A2B;
-      background-image: url('./assets/footer-new.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       color: var(--cream);
-      padding: 2em 1em 1em 1em;
+      padding: 1.5rem 1rem 1.25rem;
       border-radius: var(--radius) var(--radius) 0 0;
       margin-top: 3em;
       font-size: 1.07em;
       box-shadow: 0 -2px 18px -6px var(--shadow);
-      position: relative;
     }
-    .footer::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(139, 90, 43, 0.85);
-      border-radius: var(--radius) var(--radius) 0 0;
-      pointer-events: none;
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
     }
     .footer-content {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1em;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+      gap: 0.65em;
+      flex: 1;
+      min-width: 0;
+    }
+    .footer-image-wrap {
+      flex-shrink: 0;
+      width: 220px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+    .footer-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: middle;
     }
     .footer-logo {
       font-size: 1.5em;
@@ -554,12 +561,20 @@
       font-size: 0.97em;
       opacity: 0.93;
     }
+    .footer-classes-line {
+      font-size: 0.95em;
+      color: #e8d4b8;
+      font-style: italic;
+      margin-top: 0.15em;
+      text-align: center;
+      font-weight: 500;
+    }
     .footer-actions {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.8rem;
-      margin-top: 0.9rem;
+      margin-top: 0.5rem;
     }
     .footer-action-btn {
       padding: 0.65em 1.5em;
@@ -819,7 +834,15 @@
         font-size: 0.9em;
       }
       .footer {
-        padding: 1.1rem 0.1rem 1rem 0.1rem;
+        padding: 1.25rem 0.75rem 1rem;
+      }
+      .footer-inner {
+        flex-direction: column;
+      }
+      .footer-image-wrap {
+        width: 100%;
+        max-width: 280px;
+        order: 2;
       }
     }
     /* Hide scrollbars in webkit browsers for smooth UI */
@@ -934,34 +957,40 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-logo">
-        <i class='bx bx-bowl-hot'></i> Pottery Wheel
-      </div>
-      <div class="footer-contact">
-        <div>
-          <i class='bx bx-phone'></i> Balaji: 9966134995 |
-          <i class='bx bx-phone'></i> Yash: 9182140260
+    <div class="footer-inner">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class='bx bx-bowl-hot'></i> Pottery Wheel
         </div>
-        <div style="margin-top:0.2em;">
-          <i class='bx bx-envelope'></i> balajibima9966@gmail.com
+        <div class="footer-contact">
+          <div>
+            <i class='bx bx-phone'></i> Balaji: 9966134995 |
+            <i class='bx bx-phone'></i> Yash: 9182140260
+          </div>
+          <div style="margin-top:0.2em;">
+            <i class='bx bx-envelope'></i> balajibima9966@gmail.com
+          </div>
         </div>
+        <p class="footer-classes-line">Pottery Classes Also Available for New Learnings</p>
+        <div class="footer-actions">
+          <button class="footer-action-btn call" type="button" onclick="openContactModal('call')">
+            <i class='bx bx-phone-call'></i> Call Now
+          </button>
+          <button class="footer-action-btn whatsapp" type="button" onclick="openContactModal('whatsapp')">
+            <i class='bx bxl-whatsapp'></i> Message on WhatsApp
+          </button>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+          <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+          <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
+          <a href="#" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+        </div>
+        <div style="margin-top:0.35em;opacity:0.93;">© 2024 MittiKala – All rights reserved.</div>
       </div>
-      <div class="footer-actions">
-        <button class="footer-action-btn call" type="button" onclick="openContactModal('call')">
-          <i class='bx bx-phone-call'></i> Call Now
-        </button>
-        <button class="footer-action-btn whatsapp" type="button" onclick="openContactModal('whatsapp')">
-          <i class='bx bxl-whatsapp'></i> Message on WhatsApp
-        </button>
+      <div class="footer-image-wrap">
+        <img src="./assets/footer%20new.jpg" alt="Pottery Wheel" onerror="this.onerror=null;this.src='./assets/footer-new.png';">
       </div>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
-        <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
-        <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
-        <a href="#" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
-      </div>
-      <div style="margin-top:0.5em;opacity:0.93;">© 2024 MittiKala – All rights reserved.</div>
     </div>
   </footer>
 

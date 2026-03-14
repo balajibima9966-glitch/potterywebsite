@@ -280,6 +280,7 @@
       margin: 0 auto;
       min-height: 60px;
       visibility: visible !important;
+      opacity: 1 !important;
     }
     .product-card {
       background: #ffffff;
@@ -1164,7 +1165,7 @@
       });
     }
 
-    // Save to localStorage + sessionStorage (sessionStorage keeps items visible on mobile if localStorage fails)
+    // Save to localStorage + sessionStorage; load localStorage first, then sessionStorage (reliable on mobile)
     var STORAGE_KEY = 'mittikala_products';
 
     function getStoredProducts() {
@@ -1172,15 +1173,24 @@
         var saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           var parsed = JSON.parse(saved);
-          if (parsed && parsed.length) return parsed;
+          if (parsed && Array.isArray(parsed)) return parsed;
         }
         saved = sessionStorage.getItem(STORAGE_KEY);
         if (saved) {
           var parsed = JSON.parse(saved);
-          if (parsed && parsed.length) return parsed;
+          if (parsed && Array.isArray(parsed)) return parsed;
         }
       } catch (e) {}
       return null;
+    }
+
+    function loadProductsFromStorage() {
+      var stored = getStoredProducts();
+      if (stored && Array.isArray(stored) && stored.length > 0) {
+        products = stored.slice();
+        return true;
+      }
+      return false;
     }
 
     function saveProducts() {
@@ -1236,18 +1246,19 @@
       return window.innerWidth <= 650 ? 999 : 4;
     }
 
-    function renderProducts(reset = false) {
+    function renderProducts(reset) {
       var grid = document.getElementById('catalogueGrid');
       if (!grid) return;
-      if (reset) {
+      if (reset !== false) {
         grid.innerHTML = '';
         displayedCount = 0;
       }
-      if (products.length === 0 && reset) {
+      if (products.length === 0) {
         grid.innerHTML = '<p class="catalogue-empty">No items yet. Add one using the form above.</p>';
         if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         return;
       }
+      displayedCount = 0;
       var cardsPerPage = getCardsPerPage();
       var start = displayedCount;
       var end = Math.min(products.length, displayedCount + cardsPerPage);
@@ -1480,18 +1491,27 @@
     }
 
     window.addEventListener('DOMContentLoaded', function() {
-      var stored = getStoredProducts();
-      if (stored && stored.length) {
-        products = stored;
-      } else {
+      loadProductsFromStorage();
+      if (products.length === 0) {
         products = [defaultSample];
         saveProducts();
       }
+      var grid = document.getElementById('catalogueGrid');
+      if (grid) {
+        grid.innerHTML = '';
+        displayedCount = 0;
+      }
       renderProducts(true);
+
       setTimeout(function() {
-        var grid = document.getElementById('catalogueGrid');
-        if (products.length > 0 && grid && (grid.querySelector('.catalogue-empty') || grid.children.length === 0)) {
-          renderProducts(true);
+        var loaded = loadProductsFromStorage();
+        if (loaded || products.length > 0) {
+          grid = document.getElementById('catalogueGrid');
+          if (grid && (grid.querySelector('.catalogue-empty') || grid.children.length === 0 || loaded)) {
+            if (grid) grid.innerHTML = '';
+            displayedCount = 0;
+            renderProducts(true);
+          }
         }
       }, 400);
 

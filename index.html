@@ -376,6 +376,50 @@
     }
     .btn-delete { border-color: #8b3a2a; background: rgba(139,58,42,0.1); color: #8b3a2a; }
     .btn-delete:hover { background: #8b3a2a; color: #fff; }
+    .learning-pottery-section {
+      background: var(--cream);
+      padding: 2.5rem 1rem;
+      margin-top: 0;
+    }
+    .learning-pottery-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    .learning-pottery-content {
+      flex: 1;
+      min-width: 280px;
+    }
+    .learning-pottery-content h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--clay);
+      margin-bottom: 0.75rem;
+    }
+    .learning-pottery-content p {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #5a341c;
+      margin-bottom: 0.75rem;
+    }
+    .learning-pottery-visual {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 340px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .learning-pottery-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
     .load-more-container {
       text-align: center;
       margin-top: 2.5rem;
@@ -816,6 +860,12 @@
       .upload-and-about-wrap {
         grid-template-columns: 1fr;
       }
+      .learning-pottery-inner {
+        flex-direction: column;
+      }
+      .learning-pottery-visual {
+        max-width: 100%;
+      }
     }
     @media (max-width: 650px) {
       .hero-inner {
@@ -912,6 +962,20 @@
           <img src="../.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-d1574736-c98b-442b-a06a-25b361fcb1bb.png"
                alt="">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING POTTERY + FREE EXPERIENCE -->
+  <section class="learning-pottery-section" aria-labelledby="learning-pottery-heading">
+    <div class="learning-pottery-inner">
+      <div class="learning-pottery-content">
+        <h2 id="learning-pottery-heading"><i class='bx bx-palette' style="color:#a0522d;"></i> Learn Pottery with Us</h2>
+        <p>Experience the art of shaping clay with your own hands. We welcome beginners and enthusiasts to try pottery in a relaxed, supportive setting.</p>
+        <p><strong>Visit for a free experience.</strong> Come see our workshop, meet our artisans, and try your hand at the wheel—no commitment required. Perfect for families, groups, or anyone curious about traditional craftsmanship.</p>
+      </div>
+      <div class="learning-pottery-visual">
+        <img src="assets/learning-pottery.png" alt="Artisan shaping clay pottery" onerror="this.onerror=null;this.src='assets/learning-pottery.jpg';">
       </div>
     </div>
   </section>

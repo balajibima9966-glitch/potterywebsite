@@ -1193,6 +1193,21 @@
       return false;
     }
 
+    function ensureGridSyncedFromStorage() {
+      var hadProducts = products.length > 0;
+      var loaded = loadProductsFromStorage();
+      var grid = document.getElementById('catalogueGrid');
+      if (!grid) return;
+      var isEmptyMsg = !!grid.querySelector('.catalogue-empty');
+      var cardCount = grid.children.length;
+      var onlySample = cardCount === 1 && products.length === 1 && products[0] && (products[0].id === 'sample' || (products[0].name && products[0].name.indexOf('Sample') === 0));
+      if (loaded || (products.length > 0 && (isEmptyMsg || cardCount === 0 || onlySample))) {
+        grid.innerHTML = '';
+        displayedCount = 0;
+        renderProducts(true);
+      }
+    }
+
     function saveProducts() {
       var json = JSON.stringify(products);
       try {
@@ -1501,19 +1516,21 @@
         grid.innerHTML = '';
         displayedCount = 0;
       }
-      renderProducts(true);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          renderProducts(true);
+        });
+      });
 
-      setTimeout(function() {
-        var loaded = loadProductsFromStorage();
-        if (loaded || products.length > 0) {
-          grid = document.getElementById('catalogueGrid');
-          if (grid && (grid.querySelector('.catalogue-empty') || grid.children.length === 0 || loaded)) {
-            if (grid) grid.innerHTML = '';
-            displayedCount = 0;
-            renderProducts(true);
-          }
+      [400, 800, 1500].forEach(function(ms) {
+        setTimeout(ensureGridSyncedFromStorage, ms);
+      });
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+          setTimeout(ensureGridSyncedFromStorage, 100);
         }
-      }, 400);
+      });
 
       // Fade hero video in after it can play to avoid initial glitch
       const heroVideo = document.querySelector('.hero-video');

@@ -244,6 +244,7 @@
       background: var(--beige);
       padding: 4rem 1rem 3rem 1rem;
       overflow: visible;
+      display: block !important;
     }
     .catalogue-heading-wrap {
       margin-top: 1.75rem;
@@ -272,12 +273,13 @@
       fill: var(--clay);
     }
     .catalogue-grid {
-      display: grid;
+      display: grid !important;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
       max-width: 1130px;
       margin: 0 auto;
       min-height: 60px;
+      visibility: visible !important;
     }
     .product-card {
       background: #ffffff;
@@ -1207,23 +1209,25 @@
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     let displayedCount = 0;
     function getCardsPerPage() {
-      return (typeof window !== 'undefined' && window.innerWidth <= 650) ? 6 : 4;
+      if (typeof window === 'undefined') return 20;
+      return window.innerWidth <= 650 ? 999 : 4;
     }
 
     function renderProducts(reset = false) {
-      if (!catalogueGrid) return;
+      var grid = document.getElementById('catalogueGrid');
+      if (!grid) return;
       if (reset) {
-        catalogueGrid.innerHTML = '';
+        grid.innerHTML = '';
         displayedCount = 0;
       }
       if (products.length === 0 && reset) {
-        catalogueGrid.innerHTML = '<p class="catalogue-empty">No items yet. Add one using the form above.</p>';
+        grid.innerHTML = '<p class="catalogue-empty">No items yet. Add one using the form above.</p>';
         if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         return;
       }
-      const cardsPerPage = getCardsPerPage();
-      const start = displayedCount;
-      const end = Math.min(products.length, displayedCount + cardsPerPage);
+      var cardsPerPage = getCardsPerPage();
+      var start = displayedCount;
+      var end = Math.min(products.length, displayedCount + cardsPerPage);
 
       for (let i = start; i < end; ++i) {
         const p = products[i];
@@ -1299,7 +1303,7 @@
           });
         }
 
-        catalogueGrid.appendChild(card);
+        grid.appendChild(card);
       }
 
       displayedCount = end;
@@ -1308,7 +1312,7 @@
     function loadMoreProducts() {
       renderProducts(false);
     }
-    loadMoreBtn.addEventListener('click', loadMoreProducts);
+    if (loadMoreBtn) loadMoreBtn.addEventListener('click', loadMoreProducts);
 
     // Infinite scroll for mobile
     window.addEventListener('scroll', () => {
@@ -1392,10 +1396,10 @@
             saveProducts();
             renderProducts(true);
             exitEditMode();
-            var gridEl = document.getElementById('catalogueGrid');
-            if (gridEl && gridEl.firstElementChild && !gridEl.firstElementChild.classList.contains('catalogue-empty')) {
-              gridEl.firstElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            setTimeout(function() {
+              var section = document.getElementById('catalogueSection');
+              if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
             if (adminForm.elements[0]) adminForm.elements[0].focus();
           } catch (err) {
             alert('Upload failed: ' + (err.message || 'Please try a smaller image.'));

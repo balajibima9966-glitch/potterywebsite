@@ -245,11 +245,26 @@
       padding: 4rem 1rem 3rem 1rem;
     }
     .catalogue-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35em;
       text-align: center;
       font-size: 2rem;
       font-weight: 700;
       color: var(--clay);
+      margin-top: 1.5rem;
       margin-bottom: 1.5rem;
+    }
+    .catalogue-title-icon {
+      display: inline-flex;
+      align-items: center;
+      color: inherit;
+    }
+    .catalogue-title-icon svg {
+      width: 1.15em;
+      height: 1.15em;
+      flex-shrink: 0;
     }
     .catalogue-grid {
       display: grid;
@@ -908,7 +923,6 @@
 
   <!-- POTTERY COLLECTION (single section: add form + grid) -->
   <section class="catalogue-section" id="catalogueSection">
-    <h2 class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Pottery Collection</h2>
     <div class="upload-section">
       <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> My Pottery Collection</div>
       <form id="adminForm" class="admin-form">
@@ -922,6 +936,7 @@
         <button type="submit" class="btn" id="adminFormSubmitBtn">Upload Item</button>
       </form>
     </div>
+    <h2 class="catalogue-title"><span class="catalogue-title-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-3 0-5 2-5 5v1H4v11h16V8h-3V7c0-3-2-5-5-5zm0 2c1.7 0 3 1.3 3 3v2H9V7c0-1.7 1.3-3 3-3zm-5 6h10v7H7V10z"/></svg></span> Pottery Collection</h2>
     <div class="catalogue-grid" id="catalogueGrid"></div>
     <div class="load-more-container">
       <button id="loadMoreBtn" class="btn" style="margin-top:1em;">Load More</button>

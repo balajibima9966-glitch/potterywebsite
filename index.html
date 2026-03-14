@@ -431,7 +431,7 @@
       border-radius: var(--radius);
       overflow: hidden;
       aspect-ratio: 16/10;
-      max-height: 260px;
+      max-height: 280px;
       background: #f0ebe3;
     }
     .about-pottery-image-wrap img {
@@ -484,13 +484,25 @@
     }
     .footer {
       background-color: #8B5A2B;
-      background-image: none;
+      background-image: url('./assets/footer-new.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: var(--cream);
       padding: 2em 1em 1em 1em;
       border-radius: var(--radius) var(--radius) 0 0;
       margin-top: 3em;
       font-size: 1.07em;
       box-shadow: 0 -2px 18px -6px var(--shadow);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(139, 90, 43, 0.85);
+      border-radius: var(--radius) var(--radius) 0 0;
+      pointer-events: none;
     }
     .footer-content {
       display: flex;
@@ -499,6 +511,8 @@
       gap: 1em;
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .footer-logo {
       font-size: 1.5em;
@@ -885,16 +899,13 @@
       </form>
     </section>
     <aside class="about-pottery">
-      <h2 class="about-pottery-title"><i class='bx bx-info-circle' style="color:#a0522d;"></i> About Our Pottery</h2>
-      <p class="about-pottery-text">
-        Pottery Wheel brings you handmade traditional clay pots crafted with care. Each piece is shaped on the wheel using time-honoured techniques and natural terracotta clay. From diyas and planters to decorative pots, our collection celebrates the beauty of earth and fire.
-      </p>
-      <p class="about-pottery-text">
-        We support local artisans and sustainable practices. Every item is unique—add your own pieces above and build your pottery collection.
-      </p>
       <div class="about-pottery-image-wrap">
-        <img src="assets/item%20one.jpeg" alt="Handmade terracotta pottery">
+        <img src="assets/item%20one.jpeg" alt="Handmade clay pots and pottery">
       </div>
+      <h2 class="about-pottery-title"><i class='bx bx-globe' style="color:#a0522d;"></i> The Greatness of Pottery</h2>
+      <p class="about-pottery-text">
+        Pottery is one of the oldest human crafts, symbolizing tradition, creativity, and sustainability. Handmade clay pots bring natural beauty to homes and reflect the skill and heritage of artisans who shape earth into art.
+      </p>
     </aside>
   </div>
 

@@ -53,8 +53,9 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      object-fit: cover;
+      object-fit: contain;
       box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      flex-shrink: 0;
     }
     .brand-text-wrap {
       display: flex;
@@ -63,13 +64,12 @@
       justify-content: center;
       gap: 0.2rem;
     }
-    .brand-logo-text {
-      height: 42px;
-      width: auto;
-      max-width: 220px;
-      object-fit: contain;
-      object-position: left center;
-      display: block;
+    .brand-text-main {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      line-height: 1.2;
     }
     .brand-text-sub {
       font-family: 'Cinzel', 'Times New Roman', serif;
@@ -750,9 +750,12 @@
       .catalogue-title {
         font-size: 1.3rem;
       }
-      .brand-logo-text {
-        height: 34px;
-        max-width: 180px;
+      .brand-logo {
+        width: 48px;
+        height: 48px;
+      }
+      .brand-text-main {
+        font-size: 1.25rem;
       }
       .footer-inner {
         flex-direction: column;
@@ -792,10 +795,10 @@
       <div class="brand">
         <img
           class="brand-logo"
-          src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?auto=format&fit=crop&w=160&q=80"
-          alt="Pottery Wheel">
+          src="./assets/logo.png"
+          alt="Pottery Wheel logo">
         <div class="brand-text-wrap">
-          <img class="brand-logo-text" src="./assets/logo.png" alt="Pottery Wheel" onerror="this.src='./assets/logo.jpg';this.onerror=null;">
+          <div class="brand-text-main">Pottery Wheel</div>
           <div class="brand-text-sub">Handmade Traditional Clay Pots</div>
         </div>
       </div>
@@ -879,7 +882,7 @@
     <div class="footer-inner">
       <div class="footer-content">
         <div class="footer-logo">
-          <i class='bx bx-bowl-hot'></i> Pottery Wheel
+          <i class='bx bxs-bowl-rice'></i> Pottery Wheel
         </div>
         <div class="footer-contact">
           <div>
@@ -964,6 +967,18 @@
   <script>
     // Demo product data (simulate database)
     let products = [
+      {
+        name: 'Item One',
+        price: 499,
+        stock: 100,
+        image: './assets/item one.png'
+      },
+      {
+        name: 'Item Two',
+        price: 499,
+        stock: 100,
+        image: './assets/item two.png'
+      },
       {
         name: 'Decorative Stacked Matka Set',
         price: 299,

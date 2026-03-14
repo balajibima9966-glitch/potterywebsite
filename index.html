@@ -384,7 +384,8 @@
       max-width: 1100px;
       margin: 2.2rem auto;
       padding: 0 1rem;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: stretch;
       gap: 2.5rem;
       position: relative;
@@ -393,17 +394,18 @@
     .upload-section {
       background: var(--cream);
       border-radius: var(--radius);
-      width: 100%;
-      max-width: 440px;
-      flex-shrink: 0;
+      min-height: 0;
       margin: 0;
       padding: 2rem 1.4rem;
       box-shadow: 0 4px 16px -8px var(--shadow);
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
     }
     .about-pottery {
-      flex: 1;
       min-width: 0;
+      min-height: 0;
       background: var(--cream);
       border-radius: var(--radius);
       padding: 2rem 1.5rem;
@@ -411,6 +413,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
+      align-items: stretch;
     }
     .about-pottery-title {
       font-family: 'Cinzel', serif;
@@ -427,17 +430,25 @@
       color: #5a341c;
       opacity: 0.95;
     }
+    .about-pottery-lang {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.25rem;
+    }
     .about-pottery-image-wrap {
       border-radius: var(--radius);
       overflow: hidden;
-      aspect-ratio: 16/10;
-      max-height: 280px;
+      width: 100%;
+      max-height: 320px;
       background: #f0ebe3;
+      margin-top: 0.25rem;
     }
     .about-pottery-image-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
     .upload-title {
       font-size: 1.3rem;
@@ -788,10 +799,8 @@
     }
     @media (max-width: 900px) {
       .upload-and-about-wrap {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
       }
-      .upload-section { max-width: 100%; }
     }
     @media (max-width: 650px) {
       .hero-inner {
@@ -899,13 +908,18 @@
       </form>
     </section>
     <aside class="about-pottery">
-      <div class="about-pottery-image-wrap">
-        <img src="assets/item%20one.jpeg" alt="Handmade clay pots and pottery">
-      </div>
-      <h2 class="about-pottery-title"><i class='bx bx-globe' style="color:#a0522d;"></i> The Greatness of Pottery</h2>
+      <h2 class="about-pottery-title"><i class='bx bx-globe' style="color:#a0522d;"></i> About Our Pottery</h2>
+      <p class="about-pottery-lang">English</p>
       <p class="about-pottery-text">
-        Pottery is one of the oldest human crafts, symbolizing tradition, creativity, and sustainability. Handmade clay pots bring natural beauty to homes and reflect the skill and heritage of artisans who shape earth into art.
+        Pottery is one of the oldest human crafts that represents tradition, creativity, and culture. Handmade clay pots reflect the skill of artisans who transform simple earth into beautiful and useful art. Pottery connects us to nature and preserves the heritage of traditional craftsmanship.
       </p>
+      <p class="about-pottery-lang">తెలుగు (Telugu)</p>
+      <p class="about-pottery-text">
+        మట్టి కళ మనిషి సృష్టించిన అత్యంత పురాతన కళల్లో ఒకటి. చేతితో తయారు చేసిన మట్టి పాత్రలు కళాకారుల నైపుణ్యాన్ని చూపిస్తాయి. సాధారణ మట్టిని అందమైన కళాఖండంగా మార్చే ఈ సంప్రదాయం మన సంస్కృతిని మరియు ప్రకృతితో ఉన్న అనుబంధాన్ని ప్రతిబింబిస్తుంది.
+      </p>
+      <div class="about-pottery-image-wrap">
+        <img src="./assets/best-image.jpg" alt="Handmade pottery" onerror="this.onerror=null;this.src='./assets/best%20image.jpg';">
+      </div>
     </aside>
   </div>
 

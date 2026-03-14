@@ -1158,24 +1158,34 @@
       });
     }
 
-    // Save to localStorage for demo
+    // Save to localStorage + sessionStorage (sessionStorage keeps items visible on mobile if localStorage fails)
+    var STORAGE_KEY = 'mittikala_products';
+
     function getStoredProducts() {
       try {
-        const saved = localStorage.getItem('mittikala_products');
-        return saved ? JSON.parse(saved) : null;
-      } catch (e) {
-        return null;
-      }
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (parsed && parsed.length) return parsed;
+        }
+        saved = sessionStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (parsed && parsed.length) return parsed;
+        }
+      } catch (e) {}
+      return null;
     }
 
     function saveProducts() {
+      var json = JSON.stringify(products);
       try {
-        localStorage.setItem('mittikala_products', JSON.stringify(products));
+        localStorage.setItem(STORAGE_KEY, json);
+        sessionStorage.setItem(STORAGE_KEY, json);
       } catch (err) {
+        try { sessionStorage.setItem(STORAGE_KEY, json); } catch (e) {}
         if (err.name === 'QuotaExceededError' || err.code === 22) {
-          alert('Storage full. Try using a smaller image (e.g. under 500 KB) or remove some items.');
-        } else {
-          alert('Could not save: ' + (err.message || 'Unknown error'));
+          alert('Storage full. Try a smaller image or remove some items.');
         }
       }
     }
@@ -1364,24 +1374,19 @@
     if (adminForm) {
       adminForm.addEventListener("submit", function(e) {
         e.preventDefault();
-        const nameEl = document.getElementById("productName");
-        const priceEl = document.getElementById("productPrice");
-        const fileInput = document.getElementById("productImage");
-        const name = (nameEl && nameEl.value && nameEl.value.trim()) ? nameEl.value.trim() : 'New Item';
-        const priceStr = priceEl && priceEl.value ? priceEl.value.trim() : '';
-        const priceNum = (priceStr !== '' && !isNaN(parseFloat(priceStr)) && parseFloat(priceStr) >= 0) ? parseFloat(priceStr) : 0;
-        const isEditing = editingProductIndex >= 0;
-
-        if (!isEditing) {
-          if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-            if (fileInput) {
-              fileInput.setAttribute('required', 'required');
-              fileInput.reportValidity();
-              fileInput.focus();
-            }
-            return;
-          }
+        var nameEl = document.getElementById("productName");
+        var priceEl = document.getElementById("productPrice");
+        var fileInput = document.getElementById("productImage");
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+          if (fileInput) { fileInput.focus(); fileInput.reportValidity(); }
+          return;
         }
+        if (nameEl && (!nameEl.value || !nameEl.value.trim())) nameEl.value = 'New Item';
+        if (priceEl && (priceEl.value === '' || isNaN(parseFloat(priceEl.value)) || parseFloat(priceEl.value) < 0)) priceEl.value = '0';
+        var name = nameEl && nameEl.value ? nameEl.value.trim() : 'New Item';
+        var priceStr = priceEl && priceEl.value ? priceEl.value.trim() : '0';
+        var priceNum = (priceStr !== '' && !isNaN(parseFloat(priceStr)) && parseFloat(priceStr) >= 0) ? parseFloat(priceStr) : 0;
+        var isEditing = editingProductIndex >= 0;
 
         function doAdd(imageURL) {
           try {
@@ -1392,12 +1397,15 @@
               image: imageURL
             });
             saveProducts();
+            var grid = document.getElementById('catalogueGrid');
+            if (grid) grid.innerHTML = '';
+            displayedCount = 0;
             renderProducts(true);
             exitEditMode();
-            setTimeout(function() {
+            requestAnimationFrame(function() {
               var section = document.getElementById('catalogueSection');
               if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            });
             if (adminForm.elements[0]) adminForm.elements[0].focus();
           } catch (err) {
             alert('Upload failed: ' + (err.message || 'Please try a smaller image.'));
@@ -1465,12 +1473,18 @@
       document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const stored = getStoredProducts();
+    window.addEventListener('DOMContentLoaded', function() {
+      var stored = getStoredProducts();
       if (stored && stored.length) {
         products = stored;
       }
       renderProducts(true);
+      setTimeout(function() {
+        var grid = document.getElementById('catalogueGrid');
+        if (products.length > 0 && grid && (grid.querySelector('.catalogue-empty') || grid.children.length === 0)) {
+          renderProducts(true);
+        }
+      }, 400);
 
       // Fade hero video in after it can play to avoid initial glitch
       const heroVideo = document.querySelector('.hero-video');

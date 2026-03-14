@@ -910,7 +910,7 @@
   <section class="catalogue-section" id="catalogueSection">
     <h2 class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Pottery Collection</h2>
     <div class="upload-section">
-      <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add to Pottery Collection</div>
+      <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> My Pottery Collection</div>
       <form id="adminForm" class="admin-form">
         <input type="hidden" id="editingProductId" value="">
         <label for="productName">Product Name</label>
@@ -1267,12 +1267,16 @@
     function exitEditMode() {
       editingProductIndex = -1;
       if (editingProductIdEl) editingProductIdEl.value = '';
-      if (adminFormSubmitBtn) adminFormSubmitBtn.textContent = 'Upload Item';
+      if (adminForm) adminForm.reset();
       if (productImageInput) {
         productImageInput.removeAttribute('data-optional');
         productImageInput.setAttribute('required', 'required');
       }
-      if (adminForm) adminForm.reset();
+      if (adminFormSubmitBtn) {
+        adminFormSubmitBtn.textContent = 'Upload Item';
+        adminFormSubmitBtn.style.display = '';
+        adminFormSubmitBtn.disabled = false;
+      }
     }
 
     if (adminForm) {
@@ -1299,6 +1303,10 @@
           saveProducts();
           renderProducts(true);
           exitEditMode();
+          var gridEl = document.getElementById('catalogueGrid');
+          if (gridEl && gridEl.firstElementChild) {
+            gridEl.firstElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
           if (adminForm.elements[0]) adminForm.elements[0].focus();
         }
 

@@ -755,7 +755,7 @@
       <div class="brand">
         <img
           class="brand-logo"
-          src="./assets/logo.png"
+          src="assets/logo.jpg"
           alt="Pottery Wheel logo"
           onerror="this.onerror=null;this.src='./assets/logo.jpg';">
         <div>
@@ -1288,10 +1288,12 @@
     window.addEventListener('DOMContentLoaded', () => {
       var logoImg = document.querySelector('.brand-logo');
       if (logoImg) {
-        logoImg.src = './assets/logo.png';
+        var base = window.location.pathname.replace(/\/[^/]*$/, '') || '';
+        var logoPath = (base ? base + '/' : '') + 'assets/logo.jpg';
+        logoImg.src = logoPath;
         logoImg.onerror = function() {
           this.onerror = null;
-          this.src = './assets/logo.jpg';
+          this.src = 'assets/logo.jpg';
         };
       }
 

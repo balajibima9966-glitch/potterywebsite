@@ -380,16 +380,64 @@
       text-align: center;
       margin-top: 2.5rem;
     }
+    .upload-and-about-wrap {
+      max-width: 1100px;
+      margin: 2.2rem auto;
+      padding: 0 1rem;
+      display: flex;
+      align-items: stretch;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 3;
+    }
     .upload-section {
       background: var(--cream);
       border-radius: var(--radius);
+      width: 100%;
       max-width: 440px;
-      margin: 2.2rem auto 1.3rem auto;
+      flex-shrink: 0;
+      margin: 0;
       padding: 2rem 1.4rem;
       box-shadow: 0 4px 16px -8px var(--shadow);
       text-align: left;
-      position: relative;
-      z-index: 3;
+    }
+    .about-pottery {
+      flex: 1;
+      min-width: 0;
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 16px -8px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .about-pottery-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--clay);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .about-pottery-text {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #5a341c;
+      opacity: 0.95;
+    }
+    .about-pottery-image-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      max-height: 260px;
+      background: #f0ebe3;
+    }
+    .about-pottery-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .upload-title {
       font-size: 1.3rem;
@@ -724,6 +772,13 @@
         padding: 1.25rem 0.55rem;
       }
     }
+    @media (max-width: 900px) {
+      .upload-and-about-wrap {
+        flex-direction: column;
+        align-items: center;
+      }
+      .upload-section { max-width: 100%; }
+    }
     @media (max-width: 650px) {
       .hero-inner {
         padding: 2.4rem 0.9rem 2.6rem 0.9rem;
@@ -815,19 +870,33 @@
     </div>
   </section>
 
-  <!-- ADMIN UPLOAD -->
-  <section class="upload-section">
-    <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
-    <form id="adminForm" class="admin-form">
-      <label for="productName">Product Name</label>
-      <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
-      <label for="productPrice">Product Price (₹)</label>
-      <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
-      <label for="productImage">Product Image</label>
-      <input type="file" id="productImage" accept="image/*" required>
-      <button type="submit" class="btn">Upload Item</button>
-    </form>
-  </section>
+  <!-- ADMIN UPLOAD + ABOUT POTTERY -->
+  <div class="upload-and-about-wrap">
+    <section class="upload-section">
+      <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
+      <form id="adminForm" class="admin-form">
+        <label for="productName">Product Name</label>
+        <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
+        <label for="productPrice">Product Price (₹)</label>
+        <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
+        <label for="productImage">Product Image</label>
+        <input type="file" id="productImage" accept="image/*" required>
+        <button type="submit" class="btn">Upload Item</button>
+      </form>
+    </section>
+    <aside class="about-pottery">
+      <h2 class="about-pottery-title"><i class='bx bx-info-circle' style="color:#a0522d;"></i> About Our Pottery</h2>
+      <p class="about-pottery-text">
+        Pottery Wheel brings you handmade traditional clay pots crafted with care. Each piece is shaped on the wheel using time-honoured techniques and natural terracotta clay. From diyas and planters to decorative pots, our collection celebrates the beauty of earth and fire.
+      </p>
+      <p class="about-pottery-text">
+        We support local artisans and sustainable practices. Every item is unique—add your own pieces above and build your pottery collection.
+      </p>
+      <div class="about-pottery-image-wrap">
+        <img src="assets/item%20one.jpeg" alt="Handmade terracotta pottery">
+      </div>
+    </aside>
+  </div>
 
   <!-- CATALOGUE -->
   <section class="catalogue-section" id="catalogueSection">

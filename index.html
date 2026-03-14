@@ -1051,8 +1051,14 @@
 
   <!-- JS: Site logic and interactivity -->
   <script>
-    // Pottery collection – only uploaded items (no defaults)
-    let products = [];
+    // Pottery collection – start with one sample so mobile grid always shows something
+    var defaultSample = {
+      id: 'sample',
+      name: 'Sample – Add your own above',
+      price: 0,
+      image: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"><rect fill="#e8ddd0" width="200" height="200"/><text x="100" y="100" font-size="14" fill="#8b6914" text-anchor="middle" dominant-baseline="middle">Pottery</text></svg>')
+    };
+    var products = [defaultSample];
 
     // ORDER MODAL HELPERS
     const orderModalOverlay = document.getElementById('orderModalOverlay');
@@ -1477,6 +1483,9 @@
       var stored = getStoredProducts();
       if (stored && stored.length) {
         products = stored;
+      } else {
+        products = [defaultSample];
+        saveProducts();
       }
       renderProducts(true);
       setTimeout(function() {

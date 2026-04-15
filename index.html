@@ -376,49 +376,59 @@
     }
     .btn-delete { border-color: #8b3a2a; background: rgba(139,58,42,0.1); color: #8b3a2a; }
     .btn-delete:hover { background: #8b3a2a; color: #fff; }
-    .learning-pottery-section {
-      background: var(--cream);
-      padding: 2.5rem 1rem;
+    .pottery-collection-section {
+      background: linear-gradient(180deg, #f7efe3 0%, #efe0cd 100%);
+      padding: 2.7rem 1rem;
       margin-top: 0;
+      text-align: center;
     }
-    .learning-pottery-inner {
-      max-width: 1000px;
+    .pottery-collection-inner {
+      max-width: 1100px;
       margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2rem;
-      justify-content: space-between;
     }
-    .learning-pottery-content {
-      flex: 1;
-      min-width: 280px;
-    }
-    .learning-pottery-content h2 {
+    .pottery-collection-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: var(--clay);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
     }
-    .learning-pottery-content p {
-      font-size: 1.02rem;
-      line-height: 1.65;
-      color: #5a341c;
-      margin-bottom: 0.75rem;
+    .pottery-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      align-items: stretch;
     }
-    .learning-pottery-visual {
-      flex-shrink: 0;
+    .pottery-gallery-item {
+      background: #fff8ef;
+      border: 1px solid #e6d5bf;
+      border-radius: 14px;
+      padding: 0.7rem;
+      box-shadow: 0 8px 20px rgba(90, 52, 28, 0.09);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pottery-gallery-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(90, 52, 28, 0.13);
+    }
+    .pottery-gallery-image {
       width: 100%;
-      max-width: 340px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-    .learning-pottery-visual img {
-      width: 100%;
-      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
       display: block;
+      border-radius: 11px;
+      transition: transform 0.3s ease;
+    }
+    .pottery-gallery-item:hover .pottery-gallery-image {
+      transform: scale(1.05);
+    }
+    .pottery-gallery-caption {
+      margin-top: 0.65rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #70432a;
+      letter-spacing: 0.2px;
     }
     .load-more-container {
       text-align: center;
@@ -860,11 +870,11 @@
       .upload-and-about-wrap {
         grid-template-columns: 1fr;
       }
-      .learning-pottery-inner {
-        flex-direction: column;
+      .pottery-collection-title {
+        font-size: 1.55rem;
       }
-      .learning-pottery-visual {
-        max-width: 100%;
+      .pottery-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
     @media (max-width: 650px) {
@@ -879,6 +889,16 @@
       }
       .catalogue-title {
         font-size: 1.3rem;
+      }
+      .pottery-collection-section {
+        padding: 2.2rem 0.85rem;
+      }
+      .pottery-collection-title {
+        font-size: 1.35rem;
+      }
+      .pottery-gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
       .footer-content {
         font-size: 0.9em;
@@ -966,16 +986,37 @@
     </div>
   </section>
 
-  <!-- LEARNING POTTERY + FREE EXPERIENCE -->
-  <section class="learning-pottery-section" aria-labelledby="learning-pottery-heading">
-    <div class="learning-pottery-inner">
-      <div class="learning-pottery-content">
-        <h2 id="learning-pottery-heading"><i class='bx bx-palette' style="color:#a0522d;"></i> Learn Pottery with Us</h2>
-        <p>Experience the art of shaping clay with your own hands. We welcome beginners and enthusiasts to try pottery in a relaxed, supportive setting.</p>
-        <p><strong>Visit for a free experience.</strong> Come see our workshop, meet our artisans, and try your hand at the wheel—no commitment required. Perfect for families, groups, or anyone curious about traditional craftsmanship.</p>
-      </div>
-      <div class="learning-pottery-visual">
-        <img src="assets/learning-pottery.png" alt="Artisan shaping clay pottery" onerror="this.onerror=null;this.src='assets/learning-pottery.jpg';">
+  <!-- POTTERY COLLECTION GALLERY -->
+  <section class="pottery-collection-section" aria-labelledby="pottery-collection-heading">
+    <div class="pottery-collection-inner">
+      <h2 id="pottery-collection-heading" class="pottery-collection-title">
+        <i class='bx bx-camera' style="color:#a0522d;"></i> Our Pottery Collection
+      </h2>
+      <div class="pottery-gallery-grid">
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Handmade pottery art">
+          <figcaption class="pottery-gallery-caption">Handmade Art</figcaption>
+        </figure>
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1581090700227-1e8a9f1c2c2a?w=800" alt="Clay craft pottery">
+          <figcaption class="pottery-gallery-caption">Clay Craft</figcaption>
+        </figure>
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1590080874088-eec64895b423?w=800" alt="Wheel work pottery piece">
+          <figcaption class="pottery-gallery-caption">Wheel Work</figcaption>
+        </figure>
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800" alt="Traditional clay pots">
+          <figcaption class="pottery-gallery-caption">Traditional Pots</figcaption>
+        </figure>
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=800" alt="Rustic style pottery">
+          <figcaption class="pottery-gallery-caption">Rustic Style</figcaption>
+        </figure>
+        <figure class="pottery-gallery-item">
+          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1603575448369-153f093fd0b1?w=800" alt="Artistic pottery touch">
+          <figcaption class="pottery-gallery-caption">Artistic Touch</figcaption>
+        </figure>
       </div>
     </div>
   </section>

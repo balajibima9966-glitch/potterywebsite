@@ -6,6 +6,8 @@
   <title>Pottery Wheel – Handmade Traditional Clay Pots</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <style>
     :root {
@@ -91,7 +93,7 @@
     }
     .hero {
       position: relative;
-      min-height: 70vh;
+      min-height: calc(100vh - 72px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -128,11 +130,10 @@
       padding: 3.2rem 1.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 2.5rem;
+      justify-content: flex-start;
     }
     .hero-content {
-      flex: 1.1;
+      max-width: 620px;
       color: #f9edd9;
       text-align: left;
       opacity: 0;
@@ -175,28 +176,6 @@
       color: #f7d9aa;
     }
 
-    /* Right-side hero image slot */
-    .hero-visual {
-      flex: 0.9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-visual-inner {
-      max-width: 420px;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.55);
-      transform: translateY(20px);
-      opacity: 0;
-      animation: heroFadeUp 0.95s ease-out 0.35s forwards;
-    }
-    .hero-visual-inner img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
     .btn {
       padding: 0.9em 2.1em;
       border: none;
@@ -232,16 +211,17 @@
       padding: 4rem 1rem 3rem 1rem;
     }
     .catalogue-title {
-      text-align: center;
+      max-width: 1130px;
+      margin: 0 auto 1.5rem;
+      text-align: left;
       font-size: 2rem;
       font-weight: 700;
       color: var(--clay);
-      margin-bottom: 1.5rem;
     }
     .catalogue-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.2rem;
       max-width: 1130px;
       margin: 0 auto;
     }
@@ -266,32 +246,26 @@
     .product-img-wrap {
       position: relative;
       width: 100%;
-      height: 220px;
-      padding: 1.5rem 1.5rem 1.2rem;
-      background: #fafafa;
+      background: #f5f5f5;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
       cursor: zoom-in;
+      padding: 0;
     }
-    .product-img-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.5);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .product-img {
-      max-width: 100%;
-      max-height: 100%;
+    .product-card img {
+      width: 100%;
+      height: 220px;
       object-fit: contain;
-      z-index: 2;
-      transition: transform 0.4s ease;
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 12px;
+      box-sizing: border-box;
+      display: block;
+      transition: transform 0.35s ease;
     }
-    .product-card:hover .product-img {
-      transform: scale(1.05);
+    .product-card:hover img {
+      transform: scale(1.02);
     }
     .product-card-footer {
       display: flex;
@@ -377,40 +351,92 @@
     .btn-delete { border-color: #8b3a2a; background: rgba(139,58,42,0.1); color: #8b3a2a; }
     .btn-delete:hover { background: #8b3a2a; color: #fff; }
     .pottery-collection-section {
-      background: linear-gradient(180deg, #f7efe3 0%, #efe0cd 100%);
-      padding: 2.7rem 1rem;
-      margin-top: 0;
+      position: relative;
+      z-index: 3;
+      margin-top: -5.5rem;
+      padding: 0 1rem 2.7rem;
       text-align: center;
     }
     .pottery-collection-inner {
       max-width: 1100px;
       margin: 0 auto;
+      padding: 1.2rem 1.2rem 1.35rem;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(61, 31, 18, 0.92) 0%, rgba(38, 19, 11, 0.96) 100%);
+      border: 1px solid rgba(247, 212, 170, 0.16);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
     }
     .pottery-collection-title {
       font-family: 'Cinzel', serif;
       font-size: 1.8rem;
       font-weight: 700;
-      color: var(--clay);
-      margin-bottom: 1.5rem;
+      color: #f7e7cf;
+      margin-bottom: 1.2rem;
       letter-spacing: 0.3px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    }
+    .pottery-gallery-slider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
     .pottery-gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      display: flex;
       gap: 1.2rem;
       align-items: stretch;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0.3rem 0.1rem 0.35rem;
+      flex: 1;
+      scroll-snap-type: x proximity;
+    }
+    .pottery-gallery-grid::-webkit-scrollbar {
+      display: none;
+    }
+    .pottery-slider-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(247, 212, 170, 0.2);
+      border-radius: 50%;
+      background: rgba(247, 231, 207, 0.12);
+      color: #f7e7cf;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .pottery-slider-btn:hover {
+      background: rgba(247, 212, 170, 0.22);
+      border-color: rgba(247, 212, 170, 0.38);
+      transform: translateY(-1px);
+    }
+    .pottery-slider-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
     }
     .pottery-gallery-item {
-      background: #fff8ef;
-      border: 1px solid #e6d5bf;
-      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 248, 239, 0.14) 0%, rgba(255, 248, 239, 0.08) 100%);
+      border: 1px solid rgba(247, 212, 170, 0.18);
+      border-radius: 18px;
       padding: 0.7rem;
-      box-shadow: 0 8px 20px rgba(90, 52, 28, 0.09);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      flex: 0 0 180px;
+      scroll-snap-align: start;
+      backdrop-filter: blur(8px);
     }
     .pottery-gallery-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(90, 52, 28, 0.13);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
     }
     .pottery-gallery-image {
       width: 100%;
@@ -427,7 +453,7 @@
       margin-top: 0.65rem;
       font-size: 0.95rem;
       font-weight: 600;
-      color: #70432a;
+      color: #f7e7cf;
       letter-spacing: 0.2px;
     }
     .load-more-container {
@@ -479,10 +505,15 @@
       gap: 0.5rem;
     }
     .about-pottery-text {
-      font-size: 0.92rem;
-      line-height: 1.6;
+      font-size: 0.94rem;
+      line-height: 1.68;
       color: #5a341c;
       opacity: 0.95;
+    }
+    .about-pottery-text--te {
+      font-family: 'Noto Sans Telugu', 'Quicksand', sans-serif;
+      font-size: 0.96rem;
+      line-height: 1.78;
     }
     .about-pottery-lang {
       font-size: 0.8rem;
@@ -490,18 +521,136 @@
       color: var(--terracotta);
       margin-bottom: 0.25rem;
     }
+    .about-pottery-tribute {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0.85rem;
+      padding: clamp(1.1rem, 2.8vw, 1.65rem);
+      background: linear-gradient(145deg, rgba(252, 247, 238, 0.95) 0%, rgba(241, 228, 212, 0.9) 100%);
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 82, 45, 0.14);
+      box-shadow: 0 2px 12px -4px rgba(90, 52, 28, 0.12);
+      min-width: 0;
+      min-height: 0;
+    }
+    .upload-section .about-pottery-tribute {
+      margin-top: 1.5rem;
+      flex: 1;
+      align-items: stretch;
+    }
+    .admin-gate-intro {
+      font-size: 0.9rem;
+      color: #5a341c;
+      margin: 0 0 1rem 0;
+      line-height: 1.55;
+      opacity: 0.95;
+    }
+    .admin-gate-label {
+      display: block;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 0.35rem;
+    }
+    .admin-gate-input {
+      width: 100%;
+      padding: 0.74rem 1rem;
+      margin-bottom: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #e2ceb9;
+      background: #f9f9f7;
+      font-size: 1rem;
+      color: var(--clay);
+      outline: none;
+    }
+    .admin-gate-input:focus {
+      border-color: var(--accent);
+    }
+    .admin-gate-error {
+      color: #8b3a2a;
+      font-size: 0.88rem;
+      margin-top: 0.65rem;
+      font-weight: 600;
+    }
+    .admin-panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+    .admin-panel-header .upload-title {
+      margin-bottom: 0;
+    }
+    .admin-logout-btn {
+      padding: 0.5em 1.15em;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid rgba(160, 82, 45, 0.45);
+      background: rgba(255, 255, 255, 0.55);
+      color: var(--clay);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .admin-logout-btn:hover,
+    .admin-logout-btn:focus-visible {
+      background: rgba(160, 82, 45, 0.14);
+      outline: none;
+    }
+    .about-pottery-tribute-text {
+      font-family: 'Noto Serif Telugu', 'Noto Sans Telugu', Georgia, serif;
+      font-size: clamp(0.98rem, 2vw, 1.07rem);
+      font-weight: 500;
+      line-height: 1.92;
+      color: #452a16;
+      margin: 0;
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+    .upload-section .about-pottery-tribute-text {
+      text-align: left;
+    }
+    .about-pottery-tribute-english {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.98rem, 2.1vw, 1.12rem);
+      font-weight: 700;
+      line-height: 1.72;
+      color: #7a3015;
+      margin: 0;
+      letter-spacing: 0.055em;
+      text-align: center;
+      font-style: normal;
+    }
+    .upload-section .about-pottery-tribute-english {
+      text-align: left;
+    }
+    .about-pottery-tribute-english strong {
+      font-weight: 800;
+      color: #5c1e0a;
+      letter-spacing: 0.04em;
+    }
     .about-pottery-image-wrap {
       border-radius: var(--radius);
       overflow: hidden;
       width: 100%;
-      max-height: 320px;
-      background: #f0ebe3;
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
+      background: linear-gradient(165deg, #f3ece2 0%, #e8dfd2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      min-height: 0;
     }
     .about-pottery-image-wrap img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: clamp(200px, 42vw, 440px);
+      object-fit: contain;
+      object-position: center;
       display: block;
     }
     .upload-title {
@@ -573,18 +722,20 @@
       flex: 1;
       min-width: 0;
     }
-    .footer-image-wrap {
+    .footer-image-single {
       flex-shrink: 0;
-      width: 220px;
-      border-radius: var(--radius);
+      width: clamp(280px, 52vw, 460px);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+      background: rgba(60, 35, 18, 0.35);
     }
-    .footer-image-wrap img {
+    .footer-image-single img {
       width: 100%;
       height: auto;
       display: block;
-      vertical-align: middle;
+      object-fit: contain;
+      object-position: center;
     }
     .footer-logo {
       font-size: 1.5em;
@@ -599,21 +750,64 @@
       margin-top: 0.5em;
       display: flex;
       gap: 1.2em;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .footer-social a {
+    .footer-social-btn {
+      background: none;
+      border: none;
+      padding: 0.15em;
+      margin: 0;
+      cursor: pointer;
       color: var(--cream);
       font-size: 1.45em;
-      transition: color 0.18s;
-      text-decoration: none;
+      line-height: 1;
+      transition: color 0.18s, transform 0.15s;
     }
-    .footer-social a:hover {
+    .footer-social-btn:hover,
+    .footer-social-btn:focus-visible {
       color: #b15d22;
+      outline: none;
+    }
+    .footer-social-btn:focus-visible {
+      box-shadow: 0 0 0 2px #f5e6d3;
+      border-radius: 4px;
+    }
+    .footer-social-btn:active {
+      transform: scale(0.96);
+    }
+    .footer-action-btn.email {
+      background: linear-gradient(90deg, #6b4423, #4a2c14);
+      color: #fff5e6;
     }
     .footer-contact {
       margin-top: 0.2em;
       text-align: center;
       font-size: 0.97em;
       opacity: 0.93;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35em;
+    }
+    .footer-contact-line {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      opacity: inherit;
+      cursor: pointer;
+      text-align: center;
+      padding: 0.25em 0.5em;
+      border-radius: 8px;
+      transition: background 0.15s, opacity 0.15s;
+      max-width: 100%;
+    }
+    .footer-contact-line:hover,
+    .footer-contact-line:focus-visible {
+      background: rgba(0, 0, 0, 0.12);
+      opacity: 1;
+      outline: none;
     }
     .footer-classes-line {
       font-size: 0.95em;
@@ -775,6 +969,10 @@
       font-size: 0.95rem;
       line-height: 1.5;
     }
+    .order-modal-contact a {
+      color: #a0522d;
+      font-weight: 600;
+    }
 
     /* Contact popup (for footer buttons) */
     .contact-modal-overlay {
@@ -812,8 +1010,27 @@
     }
     .contact-modal-numbers {
       font-size: 0.98rem;
+      line-height: 1.75;
+      margin-bottom: 0.65rem;
+    }
+    .contact-modal-numbers a,
+    .contact-modal-email a {
+      color: #a0522d;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .contact-modal-email {
+      font-size: 0.98rem;
       line-height: 1.6;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(160, 82, 45, 0.2);
+    }
+    .contact-modal-hint {
+      font-size: 0.85rem;
+      opacity: 0.88;
+      text-align: center;
+      margin: 0;
     }
     .contact-modal-close {
       position: absolute;
@@ -828,16 +1045,11 @@
 
     @media (max-width: 900px) {
       .hero-inner {
-        flex-direction: column;
         text-align: center;
       }
       .hero-content {
         text-align: center;
         align-items: center;
-      }
-      .hero-visual {
-        order: -1;
-        display: none; /* hide hero side image on small screens to avoid backdrop glitch */
       }
       .hero-sub {
         margin-left: auto;
@@ -848,10 +1060,10 @@
       }
     }
 
-    /* On smaller screens, keep hero as clean static image (no video) to avoid glitches */
+    /* Keep the video visible across screen sizes */
     @media (max-width: 768px) {
       .hero-bg .hero-video {
-        display: none;
+        display: block;
       }
     }
 
@@ -860,6 +1072,7 @@
         padding: 2.5rem 0.3rem 2rem 0.3rem;
       }
       .catalogue-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
       }
       .upload-section {
@@ -872,9 +1085,6 @@
       }
       .pottery-collection-title {
         font-size: 1.55rem;
-      }
-      .pottery-gallery-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
     @media (max-width: 650px) {
@@ -890,15 +1100,32 @@
       .catalogue-title {
         font-size: 1.3rem;
       }
+      .catalogue-grid {
+        grid-template-columns: 1fr;
+      }
       .pottery-collection-section {
-        padding: 2.2rem 0.85rem;
+        margin-top: -3.5rem;
+        padding: 0 0.85rem 2.2rem;
+      }
+      .pottery-collection-inner {
+        padding: 1rem 0.8rem 1.1rem;
       }
       .pottery-collection-title {
         font-size: 1.35rem;
       }
+      .pottery-gallery-slider {
+        gap: 0.45rem;
+      }
       .pottery-gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.85rem;
+      }
+      .pottery-gallery-item {
+        flex-basis: 150px;
+      }
+      .pottery-slider-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
       }
       .footer-content {
         font-size: 0.9em;
@@ -909,9 +1136,11 @@
       .footer-inner {
         flex-direction: column;
       }
-      .footer-image-wrap {
+      .footer-image-single {
         width: 100%;
-        max-width: 280px;
+        max-width: min(96vw, 440px);
+        margin-left: auto;
+        margin-right: auto;
         order: 2;
       }
     }
@@ -964,7 +1193,7 @@
       </video>
     </div>
     <div class="hero-inner">
-      <div class="hero-content" style="max-width: 520px;">
+      <div class="hero-content">
         <div class="hero-kicker">pottery wheel Works</div>
         <div class="hero-title">Handmade Traditional Clay Pots</div>
         <div class="hero-sub">
@@ -977,12 +1206,6 @@
           </div>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-visual-inner">
-          <img src="../.cursor/projects/c-Users-share-Downloads/assets/c__Users_share_AppData_Roaming_Cursor_User_workspaceStorage_ce57c0054e323eda8e8239ad3582714f_images_image-d1574736-c98b-442b-a06a-25b361fcb1bb.png"
-               alt="">
-        </div>
-      </div>
     </div>
   </section>
 
@@ -990,33 +1213,37 @@
   <section class="pottery-collection-section" aria-labelledby="pottery-collection-heading">
     <div class="pottery-collection-inner">
       <h2 id="pottery-collection-heading" class="pottery-collection-title">
-        <i class='bx bx-camera' style="color:#a0522d;"></i> Our Pottery Collection
+        <i class='bx bx-camera' style="color:#a0522d;"></i> Crafted from Soil &amp; Soul
       </h2>
-      <div class="pottery-gallery-grid">
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Handmade pottery art">
-          <figcaption class="pottery-gallery-caption">Handmade Art</figcaption>
-        </figure>
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1581090700227-1e8a9f1c2c2a?w=800" alt="Clay craft pottery">
-          <figcaption class="pottery-gallery-caption">Clay Craft</figcaption>
-        </figure>
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1590080874088-eec64895b423?w=800" alt="Wheel work pottery piece">
-          <figcaption class="pottery-gallery-caption">Wheel Work</figcaption>
-        </figure>
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800" alt="Traditional clay pots">
-          <figcaption class="pottery-gallery-caption">Traditional Pots</figcaption>
-        </figure>
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=800" alt="Rustic style pottery">
-          <figcaption class="pottery-gallery-caption">Rustic Style</figcaption>
-        </figure>
-        <figure class="pottery-gallery-item">
-          <img class="pottery-gallery-image" src="https://images.unsplash.com/photo-1603575448369-153f093fd0b1?w=800" alt="Artistic pottery touch">
-          <figcaption class="pottery-gallery-caption">Artistic Touch</figcaption>
-        </figure>
+      <div class="pottery-gallery-slider">
+        <button class="pottery-slider-btn" id="potterySliderPrev" type="button" aria-label="Scroll pottery collection left">&#8249;</button>
+        <div class="pottery-gallery-grid" id="potteryGalleryGrid">
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image one.jpg" alt="Handmade pottery art">
+            <figcaption class="pottery-gallery-caption">Handmade Art</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image two.jpg" alt="Clay craft pottery">
+            <figcaption class="pottery-gallery-caption">Clay Craft</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image three.jpg" alt="Wheel work pottery piece">
+            <figcaption class="pottery-gallery-caption">Wheel Work</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image four.jpg" alt="Traditional clay pots">
+            <figcaption class="pottery-gallery-caption">Traditional Pots</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image five.jpg" alt="Rustic style pottery">
+            <figcaption class="pottery-gallery-caption">Rustic Style</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image six.jpg" alt="Artistic pottery touch">
+            <figcaption class="pottery-gallery-caption">Artistic Touch</figcaption>
+          </figure>
+        </div>
+        <button class="pottery-slider-btn" id="potterySliderNext" type="button" aria-label="Scroll pottery collection right">&#8250;</button>
       </div>
     </div>
   </section>
@@ -1024,36 +1251,59 @@
   <!-- ADMIN UPLOAD + ABOUT POTTERY -->
   <div class="upload-and-about-wrap">
     <section class="upload-section">
-      <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
-      <form id="adminForm" class="admin-form">
-        <label for="productName">Product Name</label>
-        <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
-        <label for="productPrice">Product Price (₹)</label>
-        <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
-        <label for="productImage">Product Image</label>
-        <input type="file" id="productImage" accept="image/*" required>
-        <button type="submit" class="btn">Upload Item</button>
-      </form>
+      <div id="adminGate" class="admin-gate">
+        <div class="upload-title"><i class='bx bx-lock-alt' style="color:#d2691e;font-size:1.2em;"></i> Owner access</div>
+        <p class="admin-gate-intro">Uploading, editing, or deleting items is only available for authorized accounts. Enter your email below to access.</p>
+        <label class="admin-gate-label" for="adminEmailInput">Email</label>
+        <input type="email" id="adminEmailInput" class="admin-gate-input" autocomplete="username" placeholder="Enter your email to access">
+        <button type="button" class="btn" id="adminUnlockBtn">Unlock upload &amp; editing</button>
+        <p id="adminGateError" class="admin-gate-error" role="alert" hidden>That email is not authorized to manage items.</p>
+      </div>
+      <div id="adminPanel" class="admin-panel" hidden>
+        <div class="admin-panel-header">
+          <div class="upload-title"><i class='bx bx-upload' style="color:#d2691e;font-size:1.2em;"></i> Add New Pottery Item</div>
+          <button type="button" class="admin-logout-btn" id="adminLogoutBtn">Sign out</button>
+        </div>
+        <form id="adminForm" class="admin-form">
+          <label for="productName">Product Name</label>
+          <input type="text" id="productName" required placeholder="e.g. Terracotta Vase">
+          <label for="productPrice">Product Price (₹)</label>
+          <input type="number" id="productPrice" required placeholder="e.g. 799" min="1" step="any">
+          <label for="productImage">Product Image</label>
+          <input type="file" id="productImage" accept="image/*" required>
+          <button type="submit" class="btn">Upload Item</button>
+        </form>
+      </div>
+      <div class="about-pottery-tribute" role="region" aria-label="Pottery craft and visiting">
+        <p class="about-pottery-tribute-text" lang="te">
+          మట్టి కుంభకారుడి చేతుల్లో జీవం పొంది, అతని స్పర్శతో అందమైన ఆకారాలుగా మారుతుంది.<br>
+          మన జీవితంలో ఉపయోగపడే పాత్రలు, కళలు, సంప్రదాయాలను అతను శ్రమతో సృష్టిస్తాడు.<br>
+          కుంభకారుడు మట్టికి ప్రాణం పోసే కళాకారుడు.
+        </p>
+        <p class="about-pottery-tribute-english" lang="en">
+          Pottery making — <strong>you can learn here too; classes are open to all.</strong> 😊
+        </p>
+      </div>
     </section>
     <aside class="about-pottery">
       <h2 class="about-pottery-title"><i class='bx bx-globe' style="color:#a0522d;"></i> About Our Pottery</h2>
       <p class="about-pottery-lang">English</p>
       <p class="about-pottery-text">
-        Pottery is one of the oldest human crafts that represents tradition, creativity, and culture. Handmade clay pots reflect the skill of artisans who transform simple earth into beautiful and useful art. Pottery connects us to nature and preserves the heritage of traditional craftsmanship.
+        Pottery is one of the oldest and most respected art forms, reflecting tradition, creativity, and cultural heritage. Each handmade clay item is crafted with care and precision, transforming natural earth into beautiful and useful creations. Our pottery represents dedication, skill, and the timeless bond between humans and nature.
       </p>
       <p class="about-pottery-lang">తెలుగు (Telugu)</p>
-      <p class="about-pottery-text">
-        మట్టి కళ మనిషి సృష్టించిన అత్యంత పురాతన కళల్లో ఒకటి. చేతితో తయారు చేసిన మట్టి పాత్రలు కళాకారుల నైపుణ్యాన్ని చూపిస్తాయి. సాధారణ మట్టిని అందమైన కళాఖండంగా మార్చే ఈ సంప్రదాయం మన సంస్కృతిని మరియు ప్రకృతితో ఉన్న అనుబంధాన్ని ప్రతిబింబిస్తుంది.
+      <p class="about-pottery-text about-pottery-text--te">
+        మట్టి కళ ప్రపంచంలో అత్యంత పురాతనమైన కళలలో ఒకటి. ఇది సంప్రదాయం, సృజనాత్మకత మరియు సంస్కృతిని ప్రతిబింబిస్తుంది. ప్రతి మట్టి పాత్రను శ్రద్ధగా, నైపుణ్యంతో తయారు చేస్తారు. మట్టి నుంచి అందమైన మరియు ఉపయోగకరమైన వస్తువులను సృష్టించడం మా వారసత్వం. ఈ కళ మనిషి మరియు ప్రకృతి మధ్య ఉన్న అనుబంధాన్ని తెలియజేస్తుంది.
       </p>
       <div class="about-pottery-image-wrap">
-        <img src="./assets/best-image.jpg" alt="Handmade pottery" onerror="this.onerror=null;this.src='./assets/best%20image.jpg';">
+        <img src="./assets/my%20dad%20image.png" alt="Master potter shaping clay by hand at the wheel" decoding="async" loading="lazy">
       </div>
     </aside>
   </div>
 
   <!-- CATALOGUE -->
-  <section class="catalogue-section" id="catalogueSection">
-    <h2 class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Pottery Collection</h2>
+  <section class="catalogue-section" id="catalogueSection" aria-labelledby="catalogue-heading">
+    <h2 id="catalogue-heading" class="catalogue-title"><i class='bx bxs-bowl-rice' style="color:#a0522d;"></i> Order Here</h2>
     <div class="catalogue-grid" id="catalogueGrid"></div>
     <div class="load-more-container">
       <button id="loadMoreBtn" class="btn" style="margin-top:1em;">Load More</button>
@@ -1067,14 +1317,14 @@
         <div class="footer-logo">
           <i class='bx bx-bowl-hot'></i> Pottery Wheel
         </div>
-        <div class="footer-contact">
-          <div>
+        <div class="footer-contact" role="group" aria-label="Contact details — tap to open full details">
+          <button type="button" class="footer-contact-line" onclick="openContactModal('contact')">
             <i class='bx bx-phone'></i> Balaji: 9966134995 |
             <i class='bx bx-phone'></i> Yash: 9182140260
-          </div>
-          <div style="margin-top:0.2em;">
-            <i class='bx bx-envelope'></i> balajibima9966@gmail.com
-          </div>
+          </button>
+          <button type="button" class="footer-contact-line" onclick="openContactModal('email')">
+            <i class='bx bx-envelope'></i> Email — tap for details
+          </button>
         </div>
         <p class="footer-classes-line">Pottery Classes Also Available for New Learnings</p>
         <div class="footer-actions">
@@ -1084,17 +1334,20 @@
           <button class="footer-action-btn whatsapp" type="button" onclick="openContactModal('whatsapp')">
             <i class='bx bxl-whatsapp'></i> Message on WhatsApp
           </button>
+          <button class="footer-action-btn email" type="button" onclick="openContactModal('email')">
+            <i class='bx bx-envelope'></i> Email Us
+          </button>
         </div>
         <div class="footer-social">
-          <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
-          <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
-          <a href="#" aria-label="Pinterest"><i class='bx bxl-pinterest-alt'></i></a>
-          <a href="#" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+          <button type="button" class="footer-social-btn" aria-label="Instagram — contact details" onclick="openContactModal('social')"><i class='bx bxl-instagram'></i></button>
+          <button type="button" class="footer-social-btn" aria-label="Facebook — contact details" onclick="openContactModal('social')"><i class='bx bxl-facebook'></i></button>
+          <button type="button" class="footer-social-btn" aria-label="Pinterest — contact details" onclick="openContactModal('social')"><i class='bx bxl-pinterest-alt'></i></button>
+          <button type="button" class="footer-social-btn" aria-label="WhatsApp — contact details" onclick="openContactModal('social')"><i class='bx bxl-whatsapp'></i></button>
         </div>
         <div style="margin-top:0.35em;opacity:0.93;">© 2024 MittiKala – All rights reserved.</div>
       </div>
-      <div class="footer-image-wrap">
-        <img src="./assets/footer%20new.jpg" alt="Pottery Wheel" onerror="this.onerror=null;this.src='./assets/footer-new.png';">
+      <div class="footer-image-single" aria-label="Pottery artisan photo">
+        <img src="./assets/my%20dad%20two.png" alt="Pottery artisan at the wheel" decoding="async" loading="lazy">
       </div>
     </div>
   </footer>
@@ -1106,12 +1359,13 @@
       <div class="contact-modal-title" id="contactModalTitle">Get in Touch</div>
       <div class="contact-modal-subtitle" id="contactModalSubtitle"></div>
       <div class="contact-modal-numbers">
-        <div><strong>Balaji</strong>: 9966134995</div>
-        <div><strong>Yash</strong>: 9182140260</div>
+        <div><strong>Balaji</strong>: <a href="tel:+919966134995">9966134995</a></div>
+        <div><strong>Yash</strong>: <a href="tel:+919182140260">9182140260</a></div>
       </div>
-      <div style="font-size:0.9rem;opacity:0.9;">
-        You can reach us by call or WhatsApp using the numbers above.
+      <div class="contact-modal-email">
+        <strong>Email</strong>: <a href="mailto:balajibima9966@gmail.com">Tap to send an email</a>
       </div>
+      <p class="contact-modal-hint">Tap a number to call, or the email link to write to us from your device.</p>
     </div>
   </div>
 
@@ -1133,9 +1387,9 @@
           <div class="order-modal-stock" id="orderModalStock"></div>
           <p class="order-modal-contact">
             For order details, please contact our team:<br>
-            Balaji: 9966134995<br>
-            Yash: 9182140260<br>
-            Email: balajibima9966@gmail.com
+            Balaji: <a href="tel:+919966134995">9966134995</a><br>
+            Yash: <a href="tel:+919182140260">9182140260</a><br>
+            Email: <a href="mailto:balajibima9966@gmail.com">Tap to send an email</a>
           </p>
         </div>
       </div>
@@ -1153,62 +1407,79 @@
     // Demo product data (simulate database)
     let products = [
       {
-        name: 'Decorative Stacked Matka Set',
+        name: 'Heritage Pot Set',
         price: 299,
         stock: 100,
-        image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400&q=80'
+        image: './assets/image one.jpg'
       },
       {
-        name: 'Traditional Clay Pottery Set (12 pcs)',
-        price: 300,
-        image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80'
+        name: 'Rustic Clay Collection',
+        price: 399,
+        image: './assets/image two.jpg'
       },
       {
-        name: 'Single Traditional Clay Pot',
-        price: 25,
-        image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&q=80'
+        name: 'Wheel Craft Cup',
+        price: 249,
+        image: './assets/image three.jpg'
       },
       {
-        name: 'Handmade Terracotta Vase',
-        price: 699,
-        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+        name: 'Traditional Pottery Wheel',
+        price: 459,
+        image: './assets/image four.jpg'
       },
       {
-        name: 'Classic Clay Tea Set',
-        price: 1199,
-        image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+        name: 'Artisan Mini Vase',
+        price: 279,
+        image: './assets/image five.jpg'
       },
       {
-        name: 'Rustic Pottery Mug',
-        price: 349,
-        image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+        name: 'Hand Shaped Clay Bowl',
+        price: 329,
+        image: './assets/image six.jpg'
       },
       {
-        name: 'Decorative Earthen Bowl',
-        price: 429,
-        image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+        name: 'Classic Matka Row',
+        price: 499,
+        image: './assets/image seven.jpg'
       },
       {
-        name: 'Artisan Clay Planter',
-        price: 520,
-        image: 'https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        name: 'Miniature Diya Set',
-        price: 259,
-        image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        name: 'Traditional Clay Matka',
-        price: 649,
-        image: 'https://images.unsplash.com/photo-1468578500627-4d7e1c7dcad5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        name: 'Painted Clay Plate',
-        price: 380,
-        image: 'https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+        name: 'Terracotta Studio Vase',
+        price: 549,
+        image: './assets/image eight.jpg'
       }
     ];
+
+    /** Owner-only upload / edit / delete (browser storage session; not a substitute for server auth) */
+    const OWNER_EMAIL = 'balajibima9966@gmail.com';
+    const OWNER_SESSION_KEY = 'mittikala_owner_session';
+
+    function normalizeOwnerEmail(s) {
+      return String(s || '').trim().toLowerCase();
+    }
+
+    function isOwnerSignedIn() {
+      try {
+        return localStorage.getItem(OWNER_SESSION_KEY) === OWNER_EMAIL;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function tryOwnerSignIn(email) {
+      if (normalizeOwnerEmail(email) !== OWNER_EMAIL) return false;
+      try {
+        localStorage.setItem(OWNER_SESSION_KEY, OWNER_EMAIL);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function clearOwnerSession() {
+      try {
+        localStorage.removeItem(OWNER_SESSION_KEY);
+      } catch (err) {}
+    }
 
     // ORDER MODAL HELPERS
     const orderModalOverlay = document.getElementById('orderModalOverlay');
@@ -1278,6 +1549,7 @@
         if (e.key === 'Escape') {
           closeImageLightbox();
           closeOrderModal();
+          closeContactModal();
         }
       });
     }
@@ -1288,11 +1560,14 @@
 
     function openContactModal(type) {
       if (!contactModalOverlay || !contactModalSubtitle) return;
-      if (type === 'whatsapp') {
-        contactModalSubtitle.textContent = 'Contact us on WhatsApp using these numbers:';
-      } else {
-        contactModalSubtitle.textContent = 'Call us on the numbers below:';
-      }
+      const hints = {
+        whatsapp: 'Reach us on WhatsApp or by phone — email is below too.',
+        call: 'Call us on the numbers below — or send an email anytime.',
+        email: 'Write to us at the email below — or call either number.',
+        social: 'We’d love to hear from you! Phone, WhatsApp, and email:',
+        contact: 'All ways to reach Pottery Wheel:'
+      };
+      contactModalSubtitle.textContent = hints[type] || hints.contact;
       contactModalOverlay.style.display = 'flex';
       contactModalOverlay.setAttribute('aria-hidden', 'false');
     }
@@ -1313,12 +1588,56 @@
 
     // Save to localStorage for demo
     function getStoredProducts() {
-      const saved = localStorage.getItem('mittikala_products');
-      return saved ? JSON.parse(saved) : null;
+      try {
+        const saved = localStorage.getItem('mittikala_products');
+        return saved ? JSON.parse(saved) : null;
+      } catch (err) {
+        console.warn('Could not read saved products', err);
+        return null;
+      }
     }
 
     function saveProducts() {
-      localStorage.setItem('mittikala_products', JSON.stringify(products));
+      try {
+        localStorage.setItem('mittikala_products', JSON.stringify(products));
+        return true;
+      } catch (err) {
+        console.warn('Could not save products', err);
+        return false;
+      }
+    }
+
+    /** Resize / re-encode large uploads so localStorage quota is not exceeded */
+    function shrinkDataUrlForStorage(dataUrl, maxWidth, jpegQuality, callback) {
+      const img = new Image();
+      img.onload = function() {
+        try {
+          const w = img.naturalWidth;
+          const h = img.naturalHeight;
+          if (!w || !h) {
+            callback(dataUrl);
+            return;
+          }
+          let tw = w;
+          let th = h;
+          if (w > maxWidth) {
+            tw = maxWidth;
+            th = Math.round((h * maxWidth) / w);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = tw;
+          canvas.height = th;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, tw, th);
+          callback(canvas.toDataURL('image/jpeg', jpegQuality));
+        } catch (err) {
+          callback(dataUrl);
+        }
+      };
+      img.onerror = function() {
+        callback(dataUrl);
+      };
+      img.src = dataUrl;
     }
 
     // Product card rendering logic
@@ -1329,6 +1648,7 @@
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
     function renderProducts(reset = false) {
+      if (!catalogueGrid) return;
       if (reset) {
         catalogueGrid.innerHTML = '';
         displayedCount = 0;
@@ -1347,6 +1667,13 @@
           ? `<div class="product-stock">Available: ${p.stock}</div>`
           : '';
 
+        const ownerActionsHtml = isOwnerSignedIn()
+          ? `<div class="product-card-actions">
+                <button type="button" class="btn-edit" aria-label="Edit item"><i class='bx bx-edit-alt'></i> Edit</button>
+                <button type="button" class="btn-delete" aria-label="Delete item"><i class='bx bx-trash'></i> Delete</button>
+              </div>`
+          : '';
+
         card.innerHTML = `
           <div class="product-img-wrap">
             <img class="product-img" src="${p.image}" alt="${p.name}">
@@ -1356,10 +1683,7 @@
               <div class="product-name">${p.name}</div>
               <div class="product-price">₹${p.price}</div>
               ${stockHtml}
-              <div class="product-card-actions">
-                <button type="button" class="btn-edit" aria-label="Edit item"><i class='bx bx-edit-alt'></i> Edit</button>
-                <button type="button" class="btn-delete" aria-label="Delete item"><i class='bx bx-trash'></i> Delete</button>
-              </div>
+              ${ownerActionsHtml}
             </div>
             <button type="button" class="product-card-cta" aria-label="Buy or view order details"><i class='bx bx-right-arrow-alt'></i></button>
           </div>
@@ -1387,6 +1711,7 @@
         if (editBtn) {
           editBtn.addEventListener('click', (ev) => {
             ev.stopPropagation();
+            if (!isOwnerSignedIn()) return;
             document.getElementById('productName').value = p.name;
             document.getElementById('productPrice').value = p.price;
             editingProductIndex = productIndex;
@@ -1394,12 +1719,18 @@
             if (imgInput) { imgInput.removeAttribute('required'); imgInput.setAttribute('data-optional', '1'); }
             const submitBtn = document.querySelector('#adminForm button[type="submit"]');
             if (submitBtn) submitBtn.textContent = 'Update Item';
-            document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const adminPanel = document.getElementById('adminPanel');
+            if (adminPanel && !adminPanel.hidden) {
+              adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              document.getElementById('catalogueSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           });
         }
         if (delBtn) {
           delBtn.addEventListener('click', (ev) => {
             ev.stopPropagation();
+            if (!isOwnerSignedIn()) return;
             if (productIndex >= 0 && productIndex < products.length) {
               products.splice(productIndex, 1);
               saveProducts();
@@ -1417,12 +1748,24 @@
       }
 
       displayedCount = end;
-      loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = displayedCount < products.length ? 'inline-block' : 'none';
+      }
     }
+
+    function refreshOwnerUI() {
+      const gate = document.getElementById('adminGate');
+      const panel = document.getElementById('adminPanel');
+      const ok = isOwnerSignedIn();
+      if (gate) gate.hidden = ok;
+      if (panel) panel.hidden = !ok;
+      renderProducts(true);
+    }
+
     function loadMoreProducts() {
       renderProducts(false);
     }
-    loadMoreBtn.addEventListener('click', loadMoreProducts);
+    if (loadMoreBtn) loadMoreBtn.addEventListener('click', loadMoreProducts);
 
     // Infinite scroll for mobile
     window.addEventListener('scroll', () => {
@@ -1453,11 +1796,17 @@
       if (submitBtn) submitBtn.textContent = 'Upload Item';
     }
 
-    document.getElementById("adminForm").addEventListener("submit", function(e) {
+    const adminForm = document.getElementById('adminForm');
+    if (adminForm) adminForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const nameEl = document.getElementById("productName");
-      const priceEl = document.getElementById("productPrice");
-      const fileInput = document.getElementById("productImage");
+      if (!isOwnerSignedIn()) {
+        alert('Sign in with the owner email to add or change items.');
+        return;
+      }
+      const form = e.currentTarget;
+      const nameEl = document.getElementById('productName');
+      const priceEl = document.getElementById('productPrice');
+      const fileInput = document.getElementById('productImage');
       const name = (nameEl && nameEl.value) ? nameEl.value.trim() : '';
       const price = (priceEl && priceEl.value) ? parseFloat(priceEl.value) : 0;
       const isEditing = editingProductIndex >= 0;
@@ -1467,45 +1816,89 @@
         return;
       }
 
+      function finishAddSuccess() {
+        if (catalogueGrid) catalogueGrid.innerHTML = '';
+        displayedCount = 0;
+        renderProducts(true);
+        exitEditMode();
+        const cat = document.getElementById('catalogueSection');
+        if (cat) cat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (form.elements[0]) form.elements[0].focus();
+      }
+
       function doAdd(imageURL) {
+        if (!imageURL) return;
         products.unshift({
           name: name || 'New Item',
           price: isNaN(price) || price < 0 ? 0 : price,
           image: imageURL
         });
-        saveProducts();
-        catalogueGrid.innerHTML = '';
-        displayedCount = 0;
-        renderProducts(true);
-        exitEditMode();
-        if (this.elements[0]) this.elements[0].focus();
+        if (saveProducts()) {
+          finishAddSuccess();
+          return;
+        }
+        products.shift();
+        shrinkDataUrlForStorage(imageURL, 960, 0.72, function(url2) {
+          products.unshift({
+            name: name || 'New Item',
+            price: isNaN(price) || price < 0 ? 0 : price,
+            image: url2
+          });
+          if (saveProducts()) {
+            finishAddSuccess();
+            return;
+          }
+          products.shift();
+          alert('Could not save the new item. Browser storage may be full. Try a smaller photo, remove some catalogue items, or clear site data for this page and try again.');
+        });
       }
 
       function doUpdate(imageURL) {
         if (editingProductIndex >= 0 && editingProductIndex < products.length) {
+          const prev = products[editingProductIndex];
           products[editingProductIndex].name = name || 'New Item';
           products[editingProductIndex].price = isNaN(price) || price < 0 ? 0 : price;
           if (imageURL) products[editingProductIndex].image = imageURL;
-          saveProducts();
-          catalogueGrid.innerHTML = '';
+          if (!saveProducts()) {
+            products[editingProductIndex] = prev;
+            alert('Could not save changes. Try a smaller image or clear site data for this page.');
+            return;
+          }
+          if (catalogueGrid) catalogueGrid.innerHTML = '';
           displayedCount = 0;
           renderProducts(true);
         }
         exitEditMode();
-        if (this.elements[0]) this.elements[0].focus();
+        if (form.elements[0]) form.elements[0].focus();
+      }
+
+      function applyImageAndSave(dataUrl) {
+        const file = fileInput.files && fileInput.files[0];
+        const large = file && (file.size > 280000 || (typeof dataUrl === 'string' && dataUrl.length > 450000));
+        if (large) {
+          shrinkDataUrlForStorage(dataUrl, 1280, 0.82, function(url) {
+            if (isEditing) doUpdate(url);
+            else doAdd(url);
+          });
+        } else {
+          if (isEditing) doUpdate(dataUrl);
+          else doAdd(dataUrl);
+        }
       }
 
       if (fileInput.files && fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const reader = new FileReader();
+        reader.onerror = function() {
+          alert('Could not read the image file. Please try another photo.');
+        };
         reader.onload = function(ev) {
-          const imageURL = ev.target.result;
-          if (isEditing) doUpdate.call(e.target, imageURL);
-          else doAdd.call(e.target, imageURL);
+          const imageURL = ev.target && ev.target.result;
+          applyImageAndSave(imageURL);
         };
         reader.readAsDataURL(file);
-      } else {
-        if (isEditing) doUpdate.call(e.target, products[editingProductIndex].image);
+      } else if (isEditing) {
+        doUpdate(products[editingProductIndex].image);
       }
     });
 
@@ -1529,7 +1922,62 @@
       if (stored) {
         products = stored;
       }
-      renderProducts(true);
+
+      const adminUnlockBtn = document.getElementById('adminUnlockBtn');
+      const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+      const adminGateError = document.getElementById('adminGateError');
+      if (adminUnlockBtn) {
+        const tryUnlock = () => {
+          const input = document.getElementById('adminEmailInput');
+          if (tryOwnerSignIn(input && input.value)) {
+            if (adminGateError) adminGateError.hidden = true;
+            refreshOwnerUI();
+          } else if (adminGateError) {
+            adminGateError.hidden = false;
+          }
+        };
+        adminUnlockBtn.addEventListener('click', tryUnlock);
+        const adminEmailInput = document.getElementById('adminEmailInput');
+        if (adminEmailInput) {
+          adminEmailInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              tryUnlock();
+            }
+          });
+        }
+      }
+      if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', () => {
+          clearOwnerSession();
+          exitEditMode();
+          refreshOwnerUI();
+        });
+      }
+      refreshOwnerUI();
+
+      const potteryGalleryGrid = document.getElementById('potteryGalleryGrid');
+      const potterySliderPrev = document.getElementById('potterySliderPrev');
+      const potterySliderNext = document.getElementById('potterySliderNext');
+      if (potteryGalleryGrid && potterySliderPrev && potterySliderNext) {
+        const updatePotterySliderButtons = () => {
+          const maxScrollLeft = potteryGalleryGrid.scrollWidth - potteryGalleryGrid.clientWidth;
+          potterySliderPrev.disabled = potteryGalleryGrid.scrollLeft <= 4;
+          potterySliderNext.disabled = potteryGalleryGrid.scrollLeft >= maxScrollLeft - 4;
+        };
+
+        const scrollPotteryGallery = (direction) => {
+          const firstCard = potteryGalleryGrid.querySelector('.pottery-gallery-item');
+          const step = firstCard ? firstCard.getBoundingClientRect().width + 19 : 220;
+          potteryGalleryGrid.scrollBy({ left: direction * step, behavior: 'smooth' });
+        };
+
+        potterySliderPrev.addEventListener('click', () => scrollPotteryGallery(-1));
+        potterySliderNext.addEventListener('click', () => scrollPotteryGallery(1));
+        potteryGalleryGrid.addEventListener('scroll', updatePotterySliderButtons, { passive: true });
+        window.addEventListener('resize', updatePotterySliderButtons);
+        updatePotterySliderButtons();
+      }
 
       // Fade hero video in after it can play to avoid initial glitch
       const heroVideo = document.querySelector('.hero-video');

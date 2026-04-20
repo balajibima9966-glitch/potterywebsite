@@ -350,32 +350,6 @@
     }
     .btn-delete { border-color: #8b3a2a; background: rgba(139,58,42,0.1); color: #8b3a2a; }
     .btn-delete:hover { background: #8b3a2a; color: #fff; }
-    .pottery-collection-section {
-      position: relative;
-      z-index: 3;
-      margin-top: -5.5rem;
-      padding: 0 1rem 2.7rem;
-      text-align: center;
-    }
-    .pottery-collection-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.2rem 1.2rem 1.35rem;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(61, 31, 18, 0.92) 0%, rgba(38, 19, 11, 0.96) 100%);
-      border: 1px solid rgba(247, 212, 170, 0.16);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-    }
-    .pottery-collection-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #f7e7cf;
-      margin-bottom: 1.2rem;
-      letter-spacing: 0.3px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-    }
     .pottery-gallery-slider {
       position: relative;
       display: flex;
@@ -455,6 +429,32 @@
       font-weight: 600;
       color: #f7e7cf;
       letter-spacing: 0.2px;
+    }
+    .assets-showcase-section {
+      position: relative;
+      z-index: 3;
+      margin-top: -5.5rem;
+      padding: 0 1rem 2.7rem;
+      text-align: center;
+    }
+    .assets-showcase-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.15rem 1.2rem 1.3rem;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(55, 32, 22, 0.9) 0%, rgba(35, 22, 14, 0.96) 100%);
+      border: 1px solid rgba(247, 212, 170, 0.14);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(8px);
+    }
+    .assets-showcase-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #f7e7cf;
+      margin-bottom: 1.05rem;
+      letter-spacing: 0.35px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
     }
     .load-more-container {
       text-align: center;
@@ -1083,9 +1083,6 @@
       .upload-and-about-wrap {
         grid-template-columns: 1fr;
       }
-      .pottery-collection-title {
-        font-size: 1.55rem;
-      }
     }
     @media (max-width: 650px) {
       .hero-inner {
@@ -1103,15 +1100,15 @@
       .catalogue-grid {
         grid-template-columns: 1fr;
       }
-      .pottery-collection-section {
+      .assets-showcase-section {
         margin-top: -3.5rem;
         padding: 0 0.85rem 2.2rem;
       }
-      .pottery-collection-inner {
+      .assets-showcase-inner {
         padding: 1rem 0.8rem 1.1rem;
       }
-      .pottery-collection-title {
-        font-size: 1.35rem;
+      .assets-showcase-title {
+        font-size: 1.28rem;
       }
       .pottery-gallery-slider {
         gap: 0.45rem;
@@ -1209,41 +1206,49 @@
     </div>
   </section>
 
-  <!-- POTTERY COLLECTION GALLERY -->
-  <section class="pottery-collection-section" aria-labelledby="pottery-collection-heading">
-    <div class="pottery-collection-inner">
-      <h2 id="pottery-collection-heading" class="pottery-collection-title">
-        <i class='bx bx-camera' style="color:#a0522d;"></i> Crafted from Soil &amp; Soul
+  <!-- ASSETS GALLERY: image one.jpg … image eight.jpg -->
+  <section class="assets-showcase-section" aria-labelledby="assets-showcase-heading">
+    <div class="assets-showcase-inner">
+      <h2 id="assets-showcase-heading" class="assets-showcase-title">
+        <i class='bx bx-image' style="color:#d4a574;"></i> From the studio — image one to eight
       </h2>
       <div class="pottery-gallery-slider">
-        <button class="pottery-slider-btn" id="potterySliderPrev" type="button" aria-label="Scroll pottery collection left">&#8249;</button>
-        <div class="pottery-gallery-grid" id="potteryGalleryGrid">
+        <button class="pottery-slider-btn" id="assetsSliderPrev" type="button" aria-label="Scroll assets gallery left">&#8249;</button>
+        <div class="pottery-gallery-grid" id="assetsGalleryGrid">
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image one.jpg" alt="Handmade pottery art">
-            <figcaption class="pottery-gallery-caption">Handmade Art</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20one.jpg" alt="Pottery gallery image one">
+            <figcaption class="pottery-gallery-caption">Image one</figcaption>
           </figure>
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image two.jpg" alt="Clay craft pottery">
-            <figcaption class="pottery-gallery-caption">Clay Craft</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20two.jpg" alt="Pottery gallery image two">
+            <figcaption class="pottery-gallery-caption">Image two</figcaption>
           </figure>
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image three.jpg" alt="Wheel work pottery piece">
-            <figcaption class="pottery-gallery-caption">Wheel Work</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20three.jpg" alt="Pottery gallery image three">
+            <figcaption class="pottery-gallery-caption">Image three</figcaption>
           </figure>
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image four.jpg" alt="Traditional clay pots">
-            <figcaption class="pottery-gallery-caption">Traditional Pots</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20four.jpg" alt="Pottery gallery image four">
+            <figcaption class="pottery-gallery-caption">Image four</figcaption>
           </figure>
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image five.jpg" alt="Rustic style pottery">
-            <figcaption class="pottery-gallery-caption">Rustic Style</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20five.jpg" alt="Pottery gallery image five">
+            <figcaption class="pottery-gallery-caption">Image five</figcaption>
           </figure>
           <figure class="pottery-gallery-item">
-            <img class="pottery-gallery-image" src="./assets/image six.jpg" alt="Artistic pottery touch">
-            <figcaption class="pottery-gallery-caption">Artistic Touch</figcaption>
+            <img class="pottery-gallery-image" src="./assets/image%20six.jpg" alt="Pottery gallery image six">
+            <figcaption class="pottery-gallery-caption">Image six</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image%20seven.jpg" alt="Pottery gallery image seven">
+            <figcaption class="pottery-gallery-caption">Image seven</figcaption>
+          </figure>
+          <figure class="pottery-gallery-item">
+            <img class="pottery-gallery-image" src="./assets/image%20eight.jpg" alt="Pottery gallery image eight">
+            <figcaption class="pottery-gallery-caption">Image eight</figcaption>
           </figure>
         </div>
-        <button class="pottery-slider-btn" id="potterySliderNext" type="button" aria-label="Scroll pottery collection right">&#8250;</button>
+        <button class="pottery-slider-btn" id="assetsSliderNext" type="button" aria-label="Scroll assets gallery right">&#8250;</button>
       </div>
     </div>
   </section>
@@ -1404,49 +1409,20 @@
 
   <!-- JS: Site logic and interactivity -->
   <script>
-    // Demo product data (simulate database)
+    // Default catalogue (uses files in /assets). New visitors and production see this until localStorage overrides.
     let products = [
-      {
-        name: 'Heritage Pot Set',
-        price: 299,
-        stock: 100,
-        image: './assets/image one.jpg'
-      },
-      {
-        name: 'Rustic Clay Collection',
-        price: 399,
-        image: './assets/image two.jpg'
-      },
-      {
-        name: 'Wheel Craft Cup',
-        price: 249,
-        image: './assets/image three.jpg'
-      },
-      {
-        name: 'Traditional Pottery Wheel',
-        price: 459,
-        image: './assets/image four.jpg'
-      },
-      {
-        name: 'Artisan Mini Vase',
-        price: 279,
-        image: './assets/image five.jpg'
-      },
-      {
-        name: 'Hand Shaped Clay Bowl',
-        price: 329,
-        image: './assets/image six.jpg'
-      },
-      {
-        name: 'Classic Matka Row',
-        price: 499,
-        image: './assets/image seven.jpg'
-      },
-      {
-        name: 'Terracotta Studio Vase',
-        price: 549,
-        image: './assets/image eight.jpg'
-      }
+      { name: 'Flower vases', price: 100, image: './assets/flower%20vase.jpg' },
+      { name: 'Kids money bank', price: 30, image: './assets/kidy%20bank.jpg' },
+      { name: 'Colour kidy bank', price: 40, image: './assets/colour%20kidy%20bank.jpg' },
+      { name: 'Ice cream cup', price: 20, image: './assets/ice%20cream%20cup' },
+      { name: 'Cup and saucer', price: 30, image: './assets/cup%20and%20soucer.jpg' },
+      { name: 'Kidy bank (alt)', price: 35, image: './assets/kidy%20bank%202' },
+      { name: 'Clay diya bulk', price: 80, image: './assets/item%20bulk%20diya.jpg' },
+      { name: 'Small plant pots', price: 60, image: './assets/item%20small%20plant%20pots' },
+      { name: 'Terracotta bowl set', price: 120, image: './assets/item%20ten%20g.jpg' },
+      { name: 'Garden planter', price: 150, image: './assets/item%20five%20b.jpg' },
+      { name: 'Classic matka', price: 200, image: './assets/item%20seven%20dup.jpg' },
+      { name: 'Large diya with air vent', price: 90, image: './assets/item%20tweleve%20big%20size%20diya%20with%20air%20prevent.jpg' }
     ];
 
     /** Owner-only upload / edit / delete (browser storage session; not a substitute for server auth) */
@@ -1956,27 +1932,25 @@
       }
       refreshOwnerUI();
 
-      const potteryGalleryGrid = document.getElementById('potteryGalleryGrid');
-      const potterySliderPrev = document.getElementById('potterySliderPrev');
-      const potterySliderNext = document.getElementById('potterySliderNext');
-      if (potteryGalleryGrid && potterySliderPrev && potterySliderNext) {
-        const updatePotterySliderButtons = () => {
-          const maxScrollLeft = potteryGalleryGrid.scrollWidth - potteryGalleryGrid.clientWidth;
-          potterySliderPrev.disabled = potteryGalleryGrid.scrollLeft <= 4;
-          potterySliderNext.disabled = potteryGalleryGrid.scrollLeft >= maxScrollLeft - 4;
+      const assetsGalleryGrid = document.getElementById('assetsGalleryGrid');
+      const assetsSliderPrev = document.getElementById('assetsSliderPrev');
+      const assetsSliderNext = document.getElementById('assetsSliderNext');
+      if (assetsGalleryGrid && assetsSliderPrev && assetsSliderNext) {
+        const updateAssetsSliderButtons = () => {
+          const maxScrollLeft = assetsGalleryGrid.scrollWidth - assetsGalleryGrid.clientWidth;
+          assetsSliderPrev.disabled = assetsGalleryGrid.scrollLeft <= 4;
+          assetsSliderNext.disabled = assetsGalleryGrid.scrollLeft >= maxScrollLeft - 4;
         };
-
-        const scrollPotteryGallery = (direction) => {
-          const firstCard = potteryGalleryGrid.querySelector('.pottery-gallery-item');
+        const scrollAssetsGallery = (direction) => {
+          const firstCard = assetsGalleryGrid.querySelector('.pottery-gallery-item');
           const step = firstCard ? firstCard.getBoundingClientRect().width + 19 : 220;
-          potteryGalleryGrid.scrollBy({ left: direction * step, behavior: 'smooth' });
+          assetsGalleryGrid.scrollBy({ left: direction * step, behavior: 'smooth' });
         };
-
-        potterySliderPrev.addEventListener('click', () => scrollPotteryGallery(-1));
-        potterySliderNext.addEventListener('click', () => scrollPotteryGallery(1));
-        potteryGalleryGrid.addEventListener('scroll', updatePotterySliderButtons, { passive: true });
-        window.addEventListener('resize', updatePotterySliderButtons);
-        updatePotterySliderButtons();
+        assetsSliderPrev.addEventListener('click', () => scrollAssetsGallery(-1));
+        assetsSliderNext.addEventListener('click', () => scrollAssetsGallery(1));
+        assetsGalleryGrid.addEventListener('scroll', updateAssetsSliderButtons, { passive: true });
+        window.addEventListener('resize', updateAssetsSliderButtons);
+        updateAssetsSliderButtons();
       }
 
       // Fade hero video in after it can play to avoid initial glitch

@@ -1535,21 +1535,31 @@
 
   <!-- JS: Site logic and interactivity -->
   <script>
-    // Default catalogue (uses files in /assets). New visitors and production see this until localStorage overrides.
-    let products = [
-      { name: 'Flower vases', price: 100, image: './assets/flower%20vase.jpg' },
-      { name: 'Kids money bank', price: 30, image: './assets/kidy%20bank.jpg' },
-      { name: 'Colour kidy bank', price: 40, image: './assets/colour%20kidy%20bank.jpg' },
-      { name: 'Ice cream cup', price: 20, image: './assets/ice%20cream%20cup' },
-      { name: 'Cup and saucer', price: 30, image: './assets/cup%20and%20soucer.jpg' },
-      { name: 'Kidy bank (alt)', price: 35, image: './assets/kidy%20bank%202' },
-      { name: 'Clay diya bulk', price: 80, image: './assets/item%20bulk%20diya.jpg' },
-      { name: 'Small plant pots', price: 60, image: './assets/item%20small%20plant%20pots' },
-      { name: 'Terracotta bowl set', price: 120, image: './assets/item%20ten%20g.jpg' },
-      { name: 'Garden planter', price: 150, image: './assets/item%20five%20b.jpg' },
-      { name: 'Classic matka', price: 200, image: './assets/item%20seven%20dup.jpg' },
-      { name: 'Large diya with air vent', price: 90, image: './assets/item%20tweleve%20big%20size%20diya%20with%20air%20prevent.jpg' }
-    ];
+    /**
+     * Bump this when you change the default product list or image paths in source.
+     * Returning visitors otherwise keep an older catalogue from localStorage and won’t see your updates.
+     */
+    const DEFAULT_CATALOGUE_VERSION = '3';
+    const CATALOGUE_VERSION_KEY = 'mittikala_catalogue_v';
+
+    function getDefaultProducts() {
+      return [
+        { name: 'Flower vases', price: 100, image: './assets/flower%20vase.jpg' },
+        { name: 'Kids money bank', price: 30, image: './assets/kidy%20bank.jpg' },
+        { name: 'Colour kidy bank', price: 40, image: './assets/colour%20kidy%20bank.jpg' },
+        { name: 'Ice cream cup', price: 20, image: './assets/ice%20cream%20cup' },
+        { name: 'Cup and saucer', price: 30, image: './assets/cup%20and%20soucer.jpg' },
+        { name: 'Kidy bank (alt)', price: 35, image: './assets/kidy%20bank%202' },
+        { name: 'Clay diya bulk', price: 80, image: './assets/item%20bulk%20diya.jpg' },
+        { name: 'Small plant pots', price: 60, image: './assets/item%20small%20plant%20pots' },
+        { name: 'Terracotta bowl set', price: 120, image: './assets/item%20ten%20g.jpg' },
+        { name: 'Garden planter', price: 150, image: './assets/item%20five%20b.jpg' },
+        { name: 'Classic matka', price: 200, image: './assets/item%20seven%20dup.jpg' },
+        { name: 'Large diya with air vent', price: 90, image: './assets/item%20tweleve%20big%20size%20diya%20with%20air%20prevent.jpg' }
+      ];
+    }
+
+    let products = getDefaultProducts();
 
     /** Owner-only upload / edit / delete (browser storage session; not a substitute for server auth) */
     const OWNER_EMAIL = 'balajibima9966@gmail.com';
@@ -2020,9 +2030,25 @@
         };
       }
 
-      const stored = getStoredProducts();
-      if (stored) {
+      let stored = null;
+      try {
+        stored = getStoredProducts();
+      } catch (e) {}
+      let catalogueV = '';
+      try {
+        catalogueV = localStorage.getItem(CATALOGUE_VERSION_KEY) || '';
+      } catch (e) {}
+      if (!catalogueV || catalogueV !== DEFAULT_CATALOGUE_VERSION) {
+        products = getDefaultProducts();
+        saveProducts();
+        try {
+          localStorage.setItem(CATALOGUE_VERSION_KEY, DEFAULT_CATALOGUE_VERSION);
+        } catch (e) {}
+      } else if (stored && Array.isArray(stored) && stored.length) {
         products = stored;
+      } else {
+        products = getDefaultProducts();
+        saveProducts();
       }
 
       const adminUnlockBtn = document.getElementById('adminUnlockBtn');

@@ -1763,11 +1763,27 @@
      * Bump this when you change the default product list or image paths in source.
      * Returning visitors otherwise keep an older catalogue from localStorage and won’t see your updates.
      */
-    const DEFAULT_CATALOGUE_VERSION = '3';
+    const DEFAULT_CATALOGUE_VERSION = '4';
     const CATALOGUE_VERSION_KEY = 'mittikala_catalogue_v';
+
+    function formatProductPrice(product) {
+      if (product.priceOnRequest) return 'Contact for price';
+      return `₹${product.price}`;
+    }
 
     function getDefaultProducts() {
       return [
+        { name: 'Vinayaka idol one', price: 0, priceOnRequest: true, image: './assets/vinayaka%20one.jpeg' },
+        { name: 'Vinayaka idol two', price: 0, priceOnRequest: true, image: './assets/vinayaka%20two.jpeg' },
+        { name: 'Vinayaka idol three', price: 0, priceOnRequest: true, image: './assets/vinayaka%20three.jpeg' },
+        { name: 'Vinayaka idol four', price: 0, priceOnRequest: true, image: './assets/vinaya%20four.jpeg' },
+        { name: 'Vinayaka idol five', price: 0, priceOnRequest: true, image: './assets/vinayaka%20five.jpeg' },
+        { name: 'Vinayaka idol six', price: 0, priceOnRequest: true, image: './assets/vinayaka%20six.jpeg' },
+        { name: 'Vinayaka idol seven', price: 0, priceOnRequest: true, image: './assets/vinayaka%20seven.jpeg' },
+        { name: 'Vinayaka idol eight', price: 0, priceOnRequest: true, image: './assets/vinayaka%20eight.jpeg' },
+        { name: 'Vinayaka idol nine', price: 0, priceOnRequest: true, image: './assets/vinayaka%20nine.jpeg' },
+        { name: 'Vinayaka idol ten', price: 0, priceOnRequest: true, image: './assets/vinayaka%20ten.jpeg' },
+        { name: 'Vinayaka idol eleven', price: 0, priceOnRequest: true, image: './assets/vinayaka%20elleven.jpeg' },
         { name: 'Flower vases', price: 100, image: './assets/flower%20vase.jpg' },
         { name: 'Kids money bank', price: 30, image: './assets/kidy%20bank.jpg' },
         { name: 'Colour kidy bank', price: 40, image: './assets/colour%20kidy%20bank.jpg' },
@@ -1829,7 +1845,7 @@
       if (!orderModalOverlay) return;
       orderModalImage.src = product.image;
       orderModalName.textContent = product.name;
-      orderModalPrice.textContent = `₹${product.price}`;
+      orderModalPrice.textContent = formatProductPrice(product);
       if (typeof product.stock === 'number') {
         orderModalStock.textContent = `Available: ${product.stock}`;
         orderModalStock.style.display = 'block';
@@ -2041,7 +2057,7 @@
           <div class="product-card-footer">
             <div class="product-card-info">
               <div class="product-name">${p.name}</div>
-              <div class="product-price">₹${p.price}</div>
+              <div class="product-price">${formatProductPrice(p)}</div>
               ${stockHtml}
               ${ownerActionsHtml}
             </div>
